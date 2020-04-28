@@ -7,4 +7,5 @@ jobs:
         steps:
             - name: install curl
               run: |
-                  sudo apt-get install curl ca-certificates
+                  pwd
+                  ls -a

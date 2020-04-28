@@ -5,6 +5,10 @@ jobs:
         name: "Trigger OBS"
         runs-on: ubuntu-latest
         steps:
+            - name: ls
+              working-directory: .
+              run: |
+                  ls -a
             - name: curl
               uses: wei/curl@master
               with:

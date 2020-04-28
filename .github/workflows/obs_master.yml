@@ -9,4 +9,4 @@ jobs:
               uses: actions/checkout@v2
             - name: OBS api
               run: |
-                  curl -XPUT -H 'comment: github source change' -H 'Content-Type: application/octet-stream' -H "authorization: ${{ secrets.obs_auth }}" --data-binary @_service "https://api.opensuse.org/source/home:justkidding:arch/ungoogled-chromium/_service"
+                  curl -XPUT -H 'Content-Type: application/octet-stream' -H "authorization: ${{ secrets.obs_auth }}" --data-binary @_service "https://api.opensuse.org/source/home:justkidding:arch/ungoogled-chromium/_service"

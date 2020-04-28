@@ -3,8 +3,8 @@
   <service name="download_url">
     <param name="protocol">https</param>
     <param name="host">commondatastorage.googleapis.com</param>
-    <param name="path">/chromium-browser-official/chromium-80.0.3987.122.tar.xz</param>
-    <param name="filename">chromium-80.0.3987.122.tar.xz</param>
+    <param name="path">/chromium-browser-official/chromium-81.0.4044.122.tar.xz</param>
+    <param name="filename">chromium-81.0.4044.122.tar.xz</param>
   </service>
   <service name="download_url">
     <param name="protocol">https</param>
@@ -15,7 +15,7 @@
   <service name="download_url">
     <param name="protocol">https</param>
     <param name="host">github.com</param>
-    <param name="path">/Eloston/ungoogled-chromium/archive/80.0.3987.122-1.zip</param>
-    <param name="filename">ungoogled-chromium-80.0.3987.122-1.zip</param>
+    <param name="path">/Eloston/ungoogled-chromium/archive/81.0.4044.122-2.zip</param>
+    <param name="filename">ungoogled-chromium-81.0.4044.122-2.zip</param>
   </service>
 </services>

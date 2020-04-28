@@ -1,7 +1,5 @@
 name: Trigger OBS build
-
 on: push
-
 jobs:
     build:
         name: "Trigger OBS"

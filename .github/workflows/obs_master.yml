@@ -10,4 +10,4 @@ jobs:
               with:
                 url: 'https://build.opensuse.org/trigger/runservice'
                 method: post
-                headers: '{"Authorization": "bearer ${{ secrets.TOKEN }}","Content-Type":"application/octet-stream" }'
+                headers: '{"Authorization": "${{ secrets.obs_master }}","Content-Type":"application/octet-stream" }'

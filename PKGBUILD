@@ -4,13 +4,13 @@
 # Contributor: Daniel J Griffiths <ghost1227@archlinux.us>
 # Contributor: Evangelos Foutras <evangelos@foutrelis.com>
 
-pkgname=ungoogled-chromium
+pkgname=ungoogled-chromium-ozone
 pkgver=81.0.4044.122
 pkgrel=2
 _pkgname=ungoogled-chromium
 _launcher_ver=6
 _ungoogled_ver=81.0.4044.122-2
-pkgdesc="A lightweight approach to removing Google web service dependency"
+pkgdesc="A lightweight approach to removing Google web service dependency with patches for wayland support via Ozone"
 arch=('x86_64')
 url="https://ungoogled-software.github.io/"
 license=('BSD')
@@ -42,7 +42,8 @@ source=(https://commondatastorage.googleapis.com/chromium-browser-official/chrom
         flags.archlinux.gn
         chromium-drirc-disable-10bpc-color-configs.conf
         vdpau-support.patch
-        vaapi-build-fix.patch)
+        vaapi-build-fix.patch
+        fix-vaapi-ozone-build.patch)
 sha256sums=('0f9ffd30d769e25e091a87b9dda4d688c19bf85b1e1fcb3b89eaae5ff780182a'
             '04917e3cd4307d8e31bfb0027a5dce6d086edb10ff8a716024fbb8bb0c7dccf1'
             'ae3bf107834bd8eda9a3ec7899fe35fde62e6111062e5def7d24bf49b53db3db'
@@ -51,10 +52,11 @@ sha256sums=('0f9ffd30d769e25e091a87b9dda4d688c19bf85b1e1fcb3b89eaae5ff780182a'
             '771292942c0901092a402cc60ee883877a99fb804cb54d568c8c6c94565a48e1'
             # -----------
             'd3c6e7f8c869a6265884654fb38795d82c443d3bf9c489babf2d1bf38aa33874'
-            'c5cc6d26470696dca806e46782ef84efa7bfc3fa13d5b2a6f9836e00d34a96af'
+            'c6ca2806ffb45cf55c0320f9985e605c105d717e140eb8786d8e292796aec35d'
             'babda4f5c1179825797496898d77334ac067149cac03d797ab27ac69671a7feb'
             '0ec6ee49113cc8cc5036fa008519b94137df6987bf1f9fbffb2d42d298af868a'
-            'fad5e678d62de0e45db1c2aa871628fdc981f78c26392c1dccc457082906a350')
+            'fad5e678d62de0e45db1c2aa871628fdc981f78c26392c1dccc457082906a350'
+            '4e7f98b093518cc402448bdc2e35deec5cd047c0dad5bcc7b1ff2e5ba7da98aa')
 provides=('chromium')
 conflicts=('chromium')
 
@@ -114,6 +116,9 @@ prepare() {
 
   # Fix VAAPI build on chromium 81+
   patch -Np1 -i ../vaapi-build-fix.patch
+
+  # Fix vaapi linkage error
+  patch -Np1 -i ../fix-vaapi-ozone-build.patch
 
   # Ungoogled chromium stuff
   _ungoogled_repo="$srcdir/$_pkgname-$_ungoogled_ver"

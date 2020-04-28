@@ -12,4 +12,4 @@ jobs:
               with:
                 url: 'https://build.opensuse.org/trigger/runservice'
                 contentType: 'application/octet-stream'
-                customHeaders: '{"Authorization": "${{ secrets.obs_master }}"'
+                customHeaders: "{'Authorization':'${{ secrets.obs_master }}'}"

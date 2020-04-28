@@ -11,7 +11,7 @@ jobs:
                   pwd
                   ls -a
                   ls ..
-                  ls ../..
+                  ls /home/runner/work/_temp/_github_home
             - name: curl
               uses: wei/curl@master
               with:

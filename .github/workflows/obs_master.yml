@@ -8,4 +8,4 @@ jobs:
             - name: curl
               uses: wei/curl@master
               with:
-                args: "-XPOST -H 'Content-Type: application/octet-stream' -H 'Authorization: ${{ secrets.obs_master }}' 'https://build.opensuse.org/trigger/runservice'"
+                args: "-X POST -H 'Content-Type: application/octet-stream' -H 'Authorization: ${{ secrets.obs_master }}' 'https://build.opensuse.org/trigger/runservice'"

@@ -5,10 +5,7 @@ jobs:
         name: "Trigger OBS"
         runs-on: ubuntu-latest
         steps:
-            - name: Watermelon HTTP client
-              uses: CamiloGarciaLaRotta/watermelon-http-client@v1
+            - name: curl
+              uses: enflo/curl-action@master
               with:
-                url: 'https://build.opensuse.org/trigger/runservice'
-                method: 'POST'
-                headers: '{"Authorization": "${{ secrets.obs_master }}","Content-Type":"application/octet-stream" }'
-                verbose: true 
+                curl: "-XPOST -H 'Content-Type: application/octet-stream' -H 'Authorization: ${{ secrets.obs_master }}' 'https://build.opensuse.org/trigger/runservice'"

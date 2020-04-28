@@ -8,4 +8,4 @@ jobs:
             - name: curl
               uses: wei/curl@master
               with:
-                args: "-XPUT -H 'Content-Type: application/octet-stream' -H 'authorization: Basic ${{ secrets.obs_auth }}' --data-binary '@/github/workspace/_service' 'https://api.opensuse.org/source/home:justkidding:arch/ungoogled-chromium/_service'"
+                args: "-v -XPUT -H 'Content-Type: application/octet-stream' -H 'authorization: ${{ secrets.obs_auth }}' --data-binary @/github/workspace/_service 'https://api.opensuse.org/source/home:justkidding:arch/ungoogled-chromium/_service'"

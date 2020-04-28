@@ -5,9 +5,9 @@ jobs:
         name: "Trigger OBS"
         runs-on: ubuntu-latest
         steps:
-            - name: HTTP Request Action
-              uses: fjogeleit/http-request-action@master
+            - name: Watermelon HTTP client
+              uses: CamiloGarciaLaRotta/watermelon-http-client@v1
               with:
                 url: 'https://build.opensuse.org/trigger/runservice'
-                contentType: 'application/octet-stream'
-                customHeaders: "{'Authorization':'${{ secrets.obs_master }}'}"
+                method: post
+                headers: '{"Authorization": "bearer ${{ secrets.TOKEN }}","Content-Type":"application/octet-stream" }'

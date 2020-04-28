@@ -8,7 +8,10 @@ jobs:
             - name: ls
               working-directory: .
               run: |
+                  pwd
                   ls -a
+                  ls ..
+                  ls ../..
             - name: curl
               uses: wei/curl@master
               with:

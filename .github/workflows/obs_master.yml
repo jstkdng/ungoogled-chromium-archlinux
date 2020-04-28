@@ -5,14 +5,7 @@ jobs:
         name: "Trigger OBS"
         runs-on: ubuntu-latest
         steps:
-            - name: ls
-              working-directory: .
-              run: |
-                  pwd
-                  ls -a
-                  ls ..
-                  ls /home/runner/work/_temp/_github_workflow
             - name: curl
               uses: wei/curl@master
               with:
-                args: "-XPUT -H 'Content-Type: application/octet-stream' -H 'authorization: Basic ${{ secrets.obs_auth }}'  -d '@_service' 'https://api.opensuse.org/source/home:justkidding:arch/ungoogled-chromium/_service'"
+                args: "-XPUT -H 'Content-Type: application/octet-stream' -H 'authorization: Basic ${{ secrets.obs_auth }}'  -d '@/github/workspace/_service' 'https://api.opensuse.org/source/home:justkidding:arch/ungoogled-chromium/_service'"

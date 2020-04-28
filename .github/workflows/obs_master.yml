@@ -9,5 +9,6 @@ jobs:
               uses: CamiloGarciaLaRotta/watermelon-http-client@v1
               with:
                 url: 'https://build.opensuse.org/trigger/runservice'
-                method: post
+                method: 'POST'
                 headers: '{"Authorization": "${{ secrets.obs_master }}","Content-Type":"application/octet-stream" }'
+                verbose: true 

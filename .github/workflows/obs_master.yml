@@ -7,5 +7,5 @@ jobs:
         steps:
             - name: install curl
               run: |
-                  pwd
-                  ls -a
+                  sudo apt-get install tree
+                  tree /home/runner

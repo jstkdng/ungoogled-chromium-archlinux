@@ -10,6 +10,6 @@ jobs:
             - name: HTTP Request Action
               uses: fjogeleit/http-request-action@v1.2.0
               with:
-                url: 'https://build.opensuse.org/trigger/runservice'
+                url: 'https://api.opensuse.org/trigger/runservice'
                 method: 'POST'
                 customHeaders: '{"Authentication": "${{ secrets.obs_master }}","project":"home:justkidding:arch","package":"ungoogled-chromium"}'

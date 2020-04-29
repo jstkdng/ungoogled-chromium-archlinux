@@ -22,6 +22,10 @@
     <param name="scm">git</param>
     <param name="url">git://github.com/jstkdng/ungoogled-chromium-archlinux</param>
     <param name="revision">ozone</param>
-    <param name="extract">*</param>
+    <param name="extract">PKGBUILD</param>
+    <param name="extract">chromium.install</param>
+    <param name="extract">chromium-drirc-disable-10bpc-color-configs.conf</param>
+    <param name="extract">flags.archlinux.gn</param>
+    <param name="extract">*.patch</param>
   </service>
 </services>

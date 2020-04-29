@@ -9,7 +9,7 @@ pkgver=81.0.4044.129
 pkgrel=1
 _pkgname=ungoogled-chromium
 _launcher_ver=6
-_ungoogled_ver=81.0.4044.122-2
+_ungoogled_ver=81.0.4044.129-1
 pkgdesc="A lightweight approach to removing Google web service dependency"
 arch=('x86_64')
 url="https://ungoogled-software.github.io/"
@@ -52,7 +52,7 @@ sha256sums=('ff74592f83ed91c082f746c6b0a3acf384bad91f170bd24548971c17f43046d3'
             '709e2fddba3c1f2ed4deb3a239fc0479bfa50c46e054e7f32db4fb1365fed070'
             '771292942c0901092a402cc60ee883877a99fb804cb54d568c8c6c94565a48e1'
             # -----------
-            'd3c6e7f8c869a6265884654fb38795d82c443d3bf9c489babf2d1bf38aa33874'
+            '869f130e552c4c2d1cf992e855d449034b005dce4d05a9aa8bba530745f3a2b9'
             'c5cc6d26470696dca806e46782ef84efa7bfc3fa13d5b2a6f9836e00d34a96af'
             'babda4f5c1179825797496898d77334ac067149cac03d797ab27ac69671a7feb'
             '0ec6ee49113cc8cc5036fa008519b94137df6987bf1f9fbffb2d42d298af868a'

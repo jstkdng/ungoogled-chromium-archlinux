@@ -1,9 +1,9 @@
-name: Trigger OBS build
+name: Trigger OBS build - ozone
 on:
     push:
         branches:
             - ozone
-    
+
 jobs:
     build:
         name: "Trigger OBS"

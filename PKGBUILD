@@ -16,6 +16,8 @@ url="https://ungoogled-software.github.io/"
 license=('BSD')
 depends=('gtk3' 'nss' 'alsa-lib' 'xdg-utils' 'libxss' 'libcups' 'libgcrypt'
          'ttf-liberation' 'systemd' 'dbus' 'libpulse' 'pciutils' 'json-glib' 'libva'
+         'icu' 'libxml2' 'fontconfig' 'harfbuzz' 'libjpeg' 're2' 'snappy' 'ffmpeg'
+         'flac' 'libwebp' 'minizip' 'libxslt' 'freetype2' 'opus'
          'desktop-file-utils' 'hicolor-icon-theme')
 makedepends=('python' 'python2' 'gperf' 'yasm' 'mesa' 'ninja' 'nodejs' 'git'
              'libpipewire02' 'clang' 'lld' 'gn' 'jre-openjdk-headless' 'jack')

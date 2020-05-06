@@ -7,6 +7,7 @@
 pkgname=ungoogled-chromium-git
 pkgver=81.0.4044.138
 pkgrel=1
+_pkgver=81.0.4044.138
 _pkgname=ungoogled-chromium
 _launcher_ver=6
 _ungoogled_ver=master
@@ -31,7 +32,7 @@ optdepends=('pepper-flash: support for Flash content'
             'libva-mesa-driver: for hardware video acceleration with AMD/ATI GPUs'
             'libva-vdpau-driver: for hardware video acceleration with NVIDIA GPUs')
 install=chromium.install
-source=(https://commondatastorage.googleapis.com/chromium-browser-official/chromium-$pkgver.tar.xz
+source=(https://commondatastorage.googleapis.com/chromium-browser-official/chromium-$_pkgver.tar.xz
         chromium-launcher-$_launcher_ver.tar.gz::https://github.com/foutrelis/chromium-launcher/archive/v$_launcher_ver.tar.gz
         rename-Relayout-in-DesktopWindowTreeHostPlatform.patch
         rebuild-Linux-frame-button-cache-when-activation.patch
@@ -39,7 +40,7 @@ source=(https://commondatastorage.googleapis.com/chromium-browser-official/chrom
         chromium-widevine.patch
         chromium-skia-harmony.patch
         # -----------
-        $pkgname-$_ungoogled_ver.tar.xz
+        "${pkgname}-${_ungoogled_ver}.tar.xz"
         flags.archlinux.gn
         chromium-drirc-disable-10bpc-color-configs.conf
         vdpau-support.patch
@@ -90,7 +91,7 @@ _unwanted_bundled_libs=(
 depends+=(${_system_libs[@]})
 
 prepare() {
-  cd "$srcdir/chromium-$pkgver"
+  cd "$srcdir/chromium-$_pkgver"
 
   # Allow building against system libraries in official builds
   sed -i 's/OFFICIAL_BUILD/GOOGLE_CHROME_BUILD/' \
@@ -162,7 +163,7 @@ prepare() {
 build() {
   make -C chromium-launcher-$_launcher_ver
 
-  cd "$srcdir/chromium-$pkgver"
+  cd "$srcdir/chromium-$_pkgver"
 
   if check_buildoption ccache y; then
     # Avoid falling back to preprocessor mode when sources contain time macros
@@ -208,7 +209,7 @@ package() {
   install -Dm644 LICENSE \
     "$pkgdir/usr/share/licenses/chromium/LICENSE.launcher"
 
-  cd "$srcdir/chromium-$pkgver"
+  cd "$srcdir/chromium-$_pkgver"
 
   install -Dm644 ../chromium-drirc-disable-10bpc-color-configs.conf \
     "$pkgdir/usr/share/drirc.d/10-$pkgname.conf"

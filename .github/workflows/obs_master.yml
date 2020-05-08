@@ -1,8 +1,8 @@
 name: Trigger OBS build
 on:
     push:
-        branches:
-            - master
+        tags:
+            - '*'
     
 jobs:
     build:

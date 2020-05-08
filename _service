@@ -15,22 +15,12 @@
   <service name="download_url">
     <param name="protocol">https</param>
     <param name="host">github.com</param>
-    <param name="path">/Eloston/ungoogled-chromium/archive/81.0.4044.129-1.zip</param>
-    <param name="filename">ungoogled-chromium-81.0.4044.129-1.zip</param>
+    <param name="path">/Eloston/ungoogled-chromium/archive/master.zip</param>
+    <param name="filename">ungoogled-chromium-master.zip</param>
   </service>
-  <service name="obs_scm">
+  <service name="tar_scm">
     <param name="scm">git</param>
-    <param name="url">git://github.com/Eloston/ungoogled-chromium.git</param>
-    <param name="filename">ungoogled-chromium-git</param>
-    <param name="package-meta">yes</param>
-    <param name="revision"></param>
-    <param name="versionrewrite-pattern">v(.*)</param>
-    <param name="versionrewrite-replacement"></param>
-    <param name="versionformat">@PARENT_TAG@.r@TAG_OFFSET@.g%h</param>
-  </service>
-  <service name="obs_scm">
-    <param name="scm">git</param>
-    <param name="url">git://github.com/jstkdng/ungoogled-chromium-archlinux.git</param>
+    <param name="url">git://github.com/jstkdng/ungoogled-chromium-archlinux</param>
     <param name="revision">master</param>
     <param name="extract">PKGBUILD</param>
     <param name="extract">chromium.install</param>
@@ -38,10 +28,4 @@
     <param name="extract">flags.archlinux.gn</param>
     <param name="extract">*.patch</param>
   </service>
-  <service mode="buildtime" name="tar" />
-  <service mode="buildtime" name="recompress">
-    <param name="file">*.tar</param>
-    <param name="compression">xz</param>
-  </service>
-  <service mode="buildtime" name="set_version" />
 </services>

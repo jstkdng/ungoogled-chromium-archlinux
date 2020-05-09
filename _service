@@ -18,10 +18,10 @@
     <param name="path">/Eloston/ungoogled-chromium/archive/master.zip</param>
     <param name="filename">ungoogled-chromium-master.zip</param>
   </service>
-  <service name="tar_scm">
+  <service name="obs_scm">
     <param name="scm">git</param>
     <param name="url">git://github.com/jstkdng/ungoogled-chromium-archlinux</param>
-    <param name="revision">master</param>
+    <param name="revision">dev</param>
     <param name="extract">PKGBUILD</param>
     <param name="extract">chromium.install</param>
     <param name="extract">chromium-drirc-disable-10bpc-color-configs.conf</param>

@@ -7,11 +7,11 @@
 pkgname=ungoogled-chromium-git
 pkgver=81.0.4044.138
 pkgrel=1
-_pkgver=81.0.4044.138
 _pkgname=ungoogled-chromium
+_pkgver=81.0.4044.138
 _launcher_ver=6
 _ungoogled_ver=master
-pkgdesc="A lightweight approach to removing Google web service dependency"
+pkgdesc="A lightweight approach to removing Google web service dependency (master branch)"
 arch=('x86_64')
 url="https://ungoogled-software.github.io/"
 license=('BSD')
@@ -36,11 +36,12 @@ source=(https://commondatastorage.googleapis.com/chromium-browser-official/chrom
         chromium-launcher-$_launcher_ver.tar.gz::https://github.com/foutrelis/chromium-launcher/archive/v$_launcher_ver.tar.gz
         rename-Relayout-in-DesktopWindowTreeHostPlatform.patch
         rebuild-Linux-frame-button-cache-when-activation.patch
+        clean-up-a-call-to-set_utf8.patch
         icu67.patch
         chromium-widevine.patch
         chromium-skia-harmony.patch
         # -----------
-        "${pkgname}-${_ungoogled_ver}.tar.xz"
+        $_pkgname-$_ungoogled_ver.zip::https://github.com/Eloston/ungoogled-chromium/archive/master.zip
         flags.archlinux.gn
         chromium-drirc-disable-10bpc-color-configs.conf
         vdpau-support.patch
@@ -50,6 +51,7 @@ sha256sums=('f478f28b8111cb70231df4c36e754d812ad7a94b7c844e9d0515345a71fd77a6'
             '04917e3cd4307d8e31bfb0027a5dce6d086edb10ff8a716024fbb8bb0c7dccf1'
             'ae3bf107834bd8eda9a3ec7899fe35fde62e6111062e5def7d24bf49b53db3db'
             '46f7fc9768730c460b27681ccf3dc2685c7e1fd22d70d3a82d9e57e3389bb014'
+            '58c41713eb6fb33b6eef120f4324fa1fb8123b1fbc4ecbe5662f1f9779b9b6af'
             '5315977307e69d20b3e856d3f8724835b08e02085a4444a5c5cefea83fd7d006'
             '709e2fddba3c1f2ed4deb3a239fc0479bfa50c46e054e7f32db4fb1365fed070'
             '771292942c0901092a402cc60ee883877a99fb804cb54d568c8c6c94565a48e1'
@@ -106,6 +108,9 @@ prepare() {
   # https://crbug.com/1049258
   patch -Np1 -i ../rename-Relayout-in-DesktopWindowTreeHostPlatform.patch
   patch -Np1 -i ../rebuild-Linux-frame-button-cache-when-activation.patch
+
+  # https://chromium-review.googlesource.com/c/chromium/src/+/2145261
+  patch -Np1 -i ../clean-up-a-call-to-set_utf8.patch
 
   # https://crbug.com/v8/10393
   patch -Np3 -d v8 <../icu67.patch

@@ -18,7 +18,7 @@
     <param name="path">/Eloston/ungoogled-chromium/archive/81.0.4044.129-1.zip</param>
     <param name="filename">ungoogled-chromium-81.0.4044.129-1.zip</param>
   </service>
-  <service name="obs_scm">
+  <service name="tar_scm">
     <param name="scm">git</param>
     <param name="url">git://github.com/jstkdng/ungoogled-chromium-archlinux</param>
     <param name="revision">master</param>

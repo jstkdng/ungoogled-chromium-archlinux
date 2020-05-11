@@ -8,8 +8,8 @@ pkgname=ungoogled-chromium
 pkgver=81.0.4044.138
 pkgrel=3
 _pkgname=ungoogled-chromium
-_launcher_ver=6
 _ungoogled_ver=81.0.4044.138-1
+_launcher_ver=6
 pkgdesc="A lightweight approach to removing Google web service dependency"
 arch=('x86_64')
 url="https://ungoogled-software.github.io/"
@@ -30,39 +30,35 @@ optdepends=('pepper-flash: support for Flash content'
             'libva-intel-driver: for hardware video acceleration with Intel GPUs (<= Haswell)'
             'libva-mesa-driver: for hardware video acceleration with AMD/ATI GPUs'
             'libva-vdpau-driver: for hardware video acceleration with NVIDIA GPUs')
+provides=('chromium')
+conflicts=('chromium')
 install=chromium.install
 source=(https://commondatastorage.googleapis.com/chromium-browser-official/chromium-$pkgver.tar.xz
         chromium-launcher-$_launcher_ver.tar.gz::https://github.com/foutrelis/chromium-launcher/archive/v$_launcher_ver.tar.gz
+        $_pkgname-$_ungoogled_ver.zip::https://github.com/Eloston/ungoogled-chromium/archive/$_ungoogled_ver.zip
+        chromium-drirc-disable-10bpc-color-configs.conf
+        vdpau-support.patch
+        vaapi-build-fix.patch
+        eglGetMscRateCHROMIUM.patch
         rename-Relayout-in-DesktopWindowTreeHostPlatform.patch
         rebuild-Linux-frame-button-cache-when-activation.patch
         clean-up-a-call-to-set_utf8.patch
         icu67.patch
         chromium-widevine.patch
-        chromium-skia-harmony.patch
-        # -----------
-        $_pkgname-$_ungoogled_ver.zip::https://github.com/Eloston/ungoogled-chromium/archive/$_ungoogled_ver.zip
-        flags.archlinux.gn
-        chromium-drirc-disable-10bpc-color-configs.conf
-        vdpau-support.patch
-        vaapi-build-fix.patch
-        eglGetMscRateCHROMIUM.patch)
+        chromium-skia-harmony.patch)
 sha256sums=('f478f28b8111cb70231df4c36e754d812ad7a94b7c844e9d0515345a71fd77a6'
             '04917e3cd4307d8e31bfb0027a5dce6d086edb10ff8a716024fbb8bb0c7dccf1'
+            '53f0d7a41d785ec9430971ca58b4b6d02979c739c5205f7ab92872f66f0aa192'
+            'babda4f5c1179825797496898d77334ac067149cac03d797ab27ac69671a7feb'
+            '0ec6ee49113cc8cc5036fa008519b94137df6987bf1f9fbffb2d42d298af868a'
+            'fad5e678d62de0e45db1c2aa871628fdc981f78c26392c1dccc457082906a350'
+            '1dd330409094dc4bf393f00a51961a983360ccf99affd4f97a61d885129d326e'
             'ae3bf107834bd8eda9a3ec7899fe35fde62e6111062e5def7d24bf49b53db3db'
             '46f7fc9768730c460b27681ccf3dc2685c7e1fd22d70d3a82d9e57e3389bb014'
             '58c41713eb6fb33b6eef120f4324fa1fb8123b1fbc4ecbe5662f1f9779b9b6af'
             '5315977307e69d20b3e856d3f8724835b08e02085a4444a5c5cefea83fd7d006'
             '709e2fddba3c1f2ed4deb3a239fc0479bfa50c46e054e7f32db4fb1365fed070'
-            '771292942c0901092a402cc60ee883877a99fb804cb54d568c8c6c94565a48e1'
-            # -----------
-            '53f0d7a41d785ec9430971ca58b4b6d02979c739c5205f7ab92872f66f0aa192'
-            'c5cc6d26470696dca806e46782ef84efa7bfc3fa13d5b2a6f9836e00d34a96af'
-            'babda4f5c1179825797496898d77334ac067149cac03d797ab27ac69671a7feb'
-            '0ec6ee49113cc8cc5036fa008519b94137df6987bf1f9fbffb2d42d298af868a'
-            'fad5e678d62de0e45db1c2aa871628fdc981f78c26392c1dccc457082906a350'
-            '1dd330409094dc4bf393f00a51961a983360ccf99affd4f97a61d885129d326e')
-provides=('chromium')
-conflicts=('chromium')
+            '771292942c0901092a402cc60ee883877a99fb804cb54d568c8c6c94565a48e1')
 
 # Possible replacements are listed in build/linux/unbundle/replace_gn_files.py
 # Keys are the names in the above script; values are the dependencies in Arch
@@ -104,6 +100,15 @@ prepare() {
     third_party/blink/renderer/core/xml/parser/xml_document_parser.cc \
     third_party/libxml/chromium/*.cc
 
+  # Fix VA-API on Nvidia
+  patch -Np1 -i ../vdpau-support.patch
+
+  # Fix VAAPI build on chromium 81+
+  patch -Np1 -i ../vaapi-build-fix.patch
+
+  # https://bugs.chromium.org/p/chromium/issues/detail?id=1064078
+  patch -Np1 -i ../eglGetMscRateCHROMIUM.patch
+
   # https://crbug.com/1049258
   patch -Np1 -i ../rename-Relayout-in-DesktopWindowTreeHostPlatform.patch
   patch -Np1 -i ../rebuild-Linux-frame-button-cache-when-activation.patch
@@ -121,24 +126,11 @@ prepare() {
   # https://crbug.com/skia/6663#c10
   patch -Np0 -i ../chromium-skia-harmony.patch
 
-  # Fix VA-API on Nvidia
-  patch -Np1 -i ../vdpau-support.patch
-
-  # Fix VAAPI build on chromium 81+
-  patch -Np1 -i ../vaapi-build-fix.patch
-
-  # https://bugs.chromium.org/p/chromium/issues/detail?id=1064078
-  patch -Np1 -i ../eglGetMscRateCHROMIUM.patch
-
-  # Ungoogled chromium stuff
+  # Ungoogled Chromium changes
   _ungoogled_repo="$srcdir/$_pkgname-$_ungoogled_ver"
   _utils="${_ungoogled_repo}/utils"
-  msg2 'Applying ungoogled chromium patches'
-  # Prune binaries
   python "$_utils/prune_binaries.py" ./ "$_ungoogled_repo/pruning.list"
-  # Patches themselves
   python "$_utils/patches.py" apply ./ "$_ungoogled_repo/patches"
-  # domain substitution
   python "$_utils/domain_substitution.py" apply -r "$_ungoogled_repo/domain_regex.list" -f "$_ungoogled_repo/domain_substitution.list" -c domainsubcache.tar.gz ./
 
   # Force script incompatible with Python 3 to use /usr/bin/python2
@@ -179,12 +171,31 @@ build() {
   export AR=ar
   export NM=nm
 
-  _ungoogled_repo="$srcdir/ungoogled-chromium-$_ungoogled_ver"
-  mkdir -p out/Release
-  # Assemble GN flags
-  cp "$_ungoogled_repo/flags.gn" "out/Release/args.gn"
-  printf '\n' >> "out/Release/args.gn"
-  cat "$srcdir/flags.archlinux.gn" >> "out/Release/args.gn"
+  local _flags=(
+    'custom_toolchain="//build/toolchain/linux/unbundle:default"'
+    'host_toolchain="//build/toolchain/linux/unbundle:default"'
+    'is_official_build=true'
+    'ffmpeg_branding="Chrome"'
+    'proprietary_codecs=true'
+    'rtc_use_pipewire=true'
+    'link_pulseaudio=true'
+    'use_gnome_keyring=false'
+    'use_sysroot=false'
+    'linux_use_bundled_binutils=false'
+    'use_custom_libcxx=false'
+    'enable_swiftshader=false'
+    'use_vaapi=true'
+    'fatal_linker_warnings=false'
+    'is_clang=true'
+    'use_kerberos=false'
+    'use_libjpeg_turbo=true'
+    'use_pulseaudio=true'
+    'use_system_freetype=true'
+    'use_system_harfbuzz=true'
+    'use_system_lcms2=true'
+    'use_system_libjpeg=true'
+    'use_system_zlib=true'
+  )
 
   if [[ -n ${_system_libs[icu]+set} ]]; then
     _flags+=('icu_use_data_file=false')
@@ -193,6 +204,10 @@ build() {
   if check_option strip y; then
     _flags+=('symbol_level=0')
   fi
+
+  # Append ungoogled chromium flags to _flags array
+  _ungoogled_repo="$srcdir/ungoogled-chromium-$_ungoogled_ver"
+  readarray -t -O ${#_flags[@]} _flags < "${_ungoogled_repo}/flags.gn"
 
   # Facilitate deterministic builds (taken from build/config/compiler/BUILD.gn)
   CFLAGS+='   -Wno-builtin-macro-redefined'
@@ -203,7 +218,7 @@ build() {
   CFLAGS+='   -Wno-unknown-warning-option'
   CXXFLAGS+=' -Wno-unknown-warning-option'
 
-  gn gen out/Release --script-executable=/usr/bin/python2
+  gn gen out/Release --args="${_flags[*]}" --script-executable=/usr/bin/python2
   ninja -C out/Release chrome chrome_sandbox chromedriver
 }
 
@@ -215,12 +230,12 @@ package() {
 
   cd "$srcdir/chromium-$pkgver"
 
-  install -Dm644 ../chromium-drirc-disable-10bpc-color-configs.conf \
-    "$pkgdir/usr/share/drirc.d/10-$pkgname.conf"
-
   install -D out/Release/chrome "$pkgdir/usr/lib/chromium/chromium"
   install -Dm4755 out/Release/chrome_sandbox "$pkgdir/usr/lib/chromium/chrome-sandbox"
   ln -s /usr/lib/chromium/chromedriver "$pkgdir/usr/bin/chromedriver"
+
+  install -Dm644 ../chromium-drirc-disable-10bpc-color-configs.conf \
+    "$pkgdir/usr/share/drirc.d/10-$pkgname.conf"
 
   install -Dm644 chrome/installer/linux/common/desktop.template \
     "$pkgdir/usr/share/applications/chromium.desktop"

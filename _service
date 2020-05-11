@@ -25,7 +25,7 @@
     <param name="extract">PKGBUILD</param>
     <param name="extract">chromium.install</param>
     <param name="extract">chromium-drirc-disable-10bpc-color-configs.conf</param>
-    <param name="extract">flags.archlinux.gn</param>
+    <!-- <param name="extract">flags.archlinux.gn</param> -->
     <param name="extract">*.patch</param>
   </service>
 </services>

@@ -22,7 +22,3 @@ use_system_lcms2=true
 use_system_libjpeg=true
 use_system_zlib=true
 icu_use_data_file=false
-# symbol_level = 2 causes OBS to run out of space
-symbol_level=0
-blink_symbol_level=0
-#exclude_unwind_tables=false

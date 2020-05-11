@@ -34,8 +34,8 @@ provides=('chromium')
 conflicts=('chromium')
 install=chromium.install
 source=(https://commondatastorage.googleapis.com/chromium-browser-official/chromium-$pkgver.tar.xz
-        chromium-launcher-$_launcher_ver.tar.gz::https://github.com/foutrelis/chromium-launcher/archive/v$_launcher_ver.tar.gz
         $_pkgname-$_ungoogled_ver.zip::https://github.com/Eloston/ungoogled-chromium/archive/$_ungoogled_ver.zip
+        chromium-launcher-$_launcher_ver.tar.gz::https://github.com/foutrelis/chromium-launcher/archive/v$_launcher_ver.tar.gz
         chromium-drirc-disable-10bpc-color-configs.conf
         vdpau-support.patch
         vaapi-build-fix.patch
@@ -47,8 +47,8 @@ source=(https://commondatastorage.googleapis.com/chromium-browser-official/chrom
         chromium-widevine.patch
         chromium-skia-harmony.patch)
 sha256sums=('f478f28b8111cb70231df4c36e754d812ad7a94b7c844e9d0515345a71fd77a6'
-            '04917e3cd4307d8e31bfb0027a5dce6d086edb10ff8a716024fbb8bb0c7dccf1'
             '53f0d7a41d785ec9430971ca58b4b6d02979c739c5205f7ab92872f66f0aa192'
+            '04917e3cd4307d8e31bfb0027a5dce6d086edb10ff8a716024fbb8bb0c7dccf1'
             'babda4f5c1179825797496898d77334ac067149cac03d797ab27ac69671a7feb'
             '0ec6ee49113cc8cc5036fa008519b94137df6987bf1f9fbffb2d42d298af868a'
             'fad5e678d62de0e45db1c2aa871628fdc981f78c26392c1dccc457082906a350'
@@ -188,13 +188,13 @@ build() {
     'fatal_linker_warnings=false'
     'is_clang=true'
     'use_kerberos=false'
-    'use_libjpeg_turbo=true'
-    'use_pulseaudio=true'
-    'use_system_freetype=true'
-    'use_system_harfbuzz=true'
-    'use_system_lcms2=true'
-    'use_system_libjpeg=true'
-    'use_system_zlib=true'
+    #'use_libjpeg_turbo=true'
+    #'use_pulseaudio=true'
+    #'use_system_freetype=true'
+    #'use_system_harfbuzz=true'
+    #'use_system_lcms2=true'
+    #'use_system_libjpeg=true'
+    #'use_system_zlib=true'
   )
 
   if [[ -n ${_system_libs[icu]+set} ]]; then

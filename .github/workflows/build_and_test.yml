@@ -1,4 +1,4 @@
-name: Trigger OBS build
+name: Build and Test
 on:
     push:
         branches:
@@ -6,11 +6,16 @@ on:
     
 jobs:
     build:
-        name: "Trigger OBS"
+        name: "Check PKGBUILD"
         runs-on: ubuntu-latest
         steps:
-            - name: Checkout
+            - name: Checkout refs
               uses: actions/checkout@v2
-            - name: OBS api
+              with:
+                  ref: ${{ github.event.pull_request.head.sha }}
+            - name: Check PKGBUILD
+              uses: jstkdng/arch-check-pkgbuild@master
+            - name: Trigger OBS build
               run: |
                   curl -XPUT -H 'Content-Type: application/octet-stream' -H "authorization: ${{ secrets.obs_auth }}" --data-binary @_service "https://api.opensuse.org/source/home:justkidding:arch/ungoogled-chromium/_service"
+

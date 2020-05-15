@@ -7,14 +7,11 @@ on:
 jobs:
     main:
         runs-on: ubuntu-latest
-        container:
-            image: justkdng/archlinux:latest
-            options: --tmpfs /build
         steps:
             - name: checkout
               uses: actions/checkout@v2
               with:
                   ref: ${{ github.event.pull_request.head.sha }}
             - name: makepkg
-              run: .github/workflows/check_makepkg.sh
+              uses: jstkdng/archlinux-check-pkgbuild@master
 

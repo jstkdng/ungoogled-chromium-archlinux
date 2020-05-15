@@ -12,24 +12,18 @@ _ungoogled_ver=81.0.4044.138-1
 _launcher_ver=6
 pkgdesc="A lightweight approach to removing Google web service dependency"
 arch=('x86_64')
-url="https://ungoogled-software.github.io/"
+url="https://github.com/ungoogled-software/ungoogled-chromium-archlinux"
 license=('BSD')
 depends=('gtk3' 'nss' 'alsa-lib' 'xdg-utils' 'libxss' 'libcups' 'libgcrypt'
          'ttf-liberation' 'systemd' 'dbus' 'libpulse' 'pciutils' 'json-glib' 'libva'
-         'icu' 'libxml2' 'fontconfig' 'harfbuzz' 'libjpeg' 're2' 'snappy' 'ffmpeg'
-         'flac' 'libwebp' 'minizip' 'libxslt' 'freetype2' 'opus'
          'desktop-file-utils' 'hicolor-icon-theme')
 makedepends=('python' 'python2' 'gperf' 'yasm' 'mesa' 'ninja' 'nodejs' 'git'
-             'libpipewire02' 'clang' 'lld' 'gn' 'jre-openjdk-headless' 'jack')
+             'libpipewire02' 'clang' 'lld' 'gn' 'java-runtime-headless')
 optdepends=('pepper-flash: support for Flash content'
             'libpipewire02: WebRTC desktop sharing under Wayland'
             'kdialog: needed for file dialogs in KDE'
             'org.freedesktop.secrets: password storage backend on GNOME / Xfce'
-            'kwallet: for storing passwords in KWallet on KDE desktops'
-            'intel-media-driver: for hardware video acceleration with Intel GPUs (>= Broadwell)'
-            'libva-intel-driver: for hardware video acceleration with Intel GPUs (<= Haswell)'
-            'libva-mesa-driver: for hardware video acceleration with AMD/ATI GPUs'
-            'libva-vdpau-driver: for hardware video acceleration with NVIDIA GPUs')
+            'kwallet: for storing passwords in KWallet on KDE desktops')
 provides=('chromium')
 conflicts=('chromium')
 install=chromium.install
@@ -174,7 +168,7 @@ build() {
   local _flags=(
     'custom_toolchain="//build/toolchain/linux/unbundle:default"'
     'host_toolchain="//build/toolchain/linux/unbundle:default"'
-    'is_official_build=true'
+    'is_official_build=true' # implies is_cfi=true on x86_64
     'ffmpeg_branding="Chrome"'
     'proprietary_codecs=true'
     'rtc_use_pipewire=true'
@@ -183,18 +177,8 @@ build() {
     'use_sysroot=false'
     'linux_use_bundled_binutils=false'
     'use_custom_libcxx=false'
-    'enable_swiftshader=false'
     'use_vaapi=true'
-    'fatal_linker_warnings=false'
-    'is_clang=true'
-    'use_kerberos=false'
-    #'use_libjpeg_turbo=true'
-    #'use_pulseaudio=true'
-    #'use_system_freetype=true'
-    #'use_system_harfbuzz=true'
-    #'use_system_lcms2=true'
-    #'use_system_libjpeg=true'
-    #'use_system_zlib=true'
+    'enable_swiftshader=false'
   )
 
   if [[ -n ${_system_libs[icu]+set} ]]; then

@@ -5,17 +5,16 @@ on:
             - master
     
 jobs:
-    build:
-        name: "Build and Test"
+    main:
         runs-on: ubuntu-latest
         steps:
-            - name: Checkout refs
+            - name: checkout
               uses: actions/checkout@v2
               with:
                   ref: ${{ github.event.pull_request.head.sha }}
-            - name: Check PKGBUILD
-              uses: jstkdng/arch-check-pkgbuild@master
-            - name: Trigger OBS build
-              run: |
-                  curl -XPUT -H 'Content-Type: application/octet-stream' -H "authorization: ${{ secrets.obs_auth }}" --data-binary @_service "https://api.opensuse.org/source/home:justkidding:arch/ungoogled-chromium/_service"
+            - name: makepkg
+              container:
+                  image: justkdng/archlinux:latest
+                  options: --tmpfs /build
+              run: .github/workflows/check_makepkg.sh
 

@@ -12,3 +12,14 @@ sed -r -i \
     -e '/^depends[+]=/d' \
     -e '/^makedepends=/,/[)]$/cmakedepends=('"${makedeps}"')' \
     "PKGBUILD"
+
+# Send files to obs
+AUTH="authorization: Basic ${OBS_AUTH}"
+declare -a FILES=(PKGBUILD _service)
+
+for FILE in "${FILES[@]}"
+do
+    URL="https://api.opensuse.org/source/home:justkidding:arch/ungoogled-chromium/${FILE}?rev=upload"
+    curl -XPUT -H 'Content-Type: application/octet-stream' -H "${AUTH}" --data-binary "@${FILE}" $URL
+done
+curl -XPOST -H "${AUTH}" "https://api.opensuse.org/source/home:justkidding:arch/ungoogled-chromium" -F "cmd=commit"

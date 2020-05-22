@@ -8,10 +8,15 @@ jobs:
     main:
         runs-on: ubuntu-latest
         steps:
-            - name: checkout
+            - name: Checkout latest commit
               uses: actions/checkout@v2
               with:
                   ref: ${{ github.event.pull_request.head.sha }}
-            - name: makepkg
+            - name: Run makepkg
               uses: jstkdng/arch-check-pkgbuild@master
+            - name: Trigger OBS
+              shell: bash
+              env:
+                  OBS_AUTH: ${{ secrets.OBS_AUTH }}
+              run: .github/workflow/obs_upload.sh
 

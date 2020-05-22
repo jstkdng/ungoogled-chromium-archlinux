@@ -39,7 +39,8 @@ source=(https://commondatastorage.googleapis.com/chromium-browser-official/chrom
         clean-up-a-call-to-set_utf8.patch
         icu67.patch
         chromium-widevine.patch
-        chromium-skia-harmony.patch)
+        chromium-skia-harmony.patch
+        chromium-83-gcc-10.patch)
 sha256sums=('f478f28b8111cb70231df4c36e754d812ad7a94b7c844e9d0515345a71fd77a6'
             '53f0d7a41d785ec9430971ca58b4b6d02979c739c5205f7ab92872f66f0aa192'
             '04917e3cd4307d8e31bfb0027a5dce6d086edb10ff8a716024fbb8bb0c7dccf1'
@@ -52,7 +53,8 @@ sha256sums=('f478f28b8111cb70231df4c36e754d812ad7a94b7c844e9d0515345a71fd77a6'
             '58c41713eb6fb33b6eef120f4324fa1fb8123b1fbc4ecbe5662f1f9779b9b6af'
             '5315977307e69d20b3e856d3f8724835b08e02085a4444a5c5cefea83fd7d006'
             '709e2fddba3c1f2ed4deb3a239fc0479bfa50c46e054e7f32db4fb1365fed070'
-            '771292942c0901092a402cc60ee883877a99fb804cb54d568c8c6c94565a48e1')
+            '771292942c0901092a402cc60ee883877a99fb804cb54d568c8c6c94565a48e1'
+            '3e5ba8c0a70a4bc673deec0c61eb2b58f05a4c784cbdb7c8118be1eb6580db6d')
 
 # Possible replacements are listed in build/linux/unbundle/replace_gn_files.py
 # Keys are the names in the above script; values are the dependencies in Arch
@@ -116,6 +118,9 @@ prepare() {
   # Load bundled Widevine CDM if available (see chromium-widevine in the AUR)
   # M79 is supposed to download it as a component but it doesn't seem to work
   patch -Np1 -i ../chromium-widevine.patch
+
+  # Fixes from Gentoo
+  patch -Np1 -i ../chromium-83-gcc-10.patch
 
   # https://crbug.com/skia/6663#c10
   patch -Np0 -i ../chromium-skia-harmony.patch

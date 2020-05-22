@@ -1,4 +1,12 @@
 #!/bin/bash
+
+declare -a FILES=(PKGBUILD _service)
+
+# make temporary directory
+TMP=$(mktemp -d)
+cp "${FILES[@]}" $TMP
+cd $TMP
+
 source PKGBUILD
 newdeps=$(printf "'%s' " "${depends[@]}")
 makedeps=$(printf "'%s' " "${makedepends[@]}")
@@ -15,8 +23,6 @@ sed -r -i \
 
 # Send files to obs
 AUTH="authorization: Basic ${OBS_AUTH}"
-declare -a FILES=(PKGBUILD _service)
-
 for FILE in "${FILES[@]}"
 do
     URL="https://api.opensuse.org/source/home:justkidding:arch/ungoogled-chromium/${FILE}?rev=upload"

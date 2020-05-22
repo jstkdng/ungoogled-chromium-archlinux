@@ -14,9 +14,9 @@ jobs:
                   ref: ${{ github.event.pull_request.head.sha }}
             - name: Run makepkg
               uses: jstkdng/arch-check-pkgbuild@master
-            - name: Trigger OBS
+            - name: Trigger OBS build
               shell: bash
               env:
                   OBS_AUTH: ${{ secrets.OBS_AUTH }}
-              run: .github/workflow/obs_upload.sh
+              run: .github/workflows/obs_upload.sh
 

@@ -29,7 +29,7 @@ provides=('chromium')
 conflicts=('chromium')
 install=chromium.install
 source=(https://commondatastorage.googleapis.com/chromium-browser-official/chromium-$pkgver.tar.xz
-        $_pkgname-$_ungoogled_ver.zip::https://github.com/jstkdng/ungoogled-chromium/archive/$_ungoogled_ver.zip
+        $_pkgname-$_ungoogled_ver.zip::https://github.com/Zoraver/ungoogled-chromium/archive/$_ungoogled_ver.zip
         chromium-launcher-$_launcher_ver.tar.gz::https://github.com/foutrelis/chromium-launcher/archive/v$_launcher_ver.tar.gz
         chromium-drirc-disable-10bpc-color-configs.conf
         vdpau-support.patch

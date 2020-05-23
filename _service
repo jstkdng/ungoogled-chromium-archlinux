@@ -15,7 +15,7 @@
   <service name="download_url">
     <param name="protocol">https</param>
     <param name="host">github.com</param>
-    <param name="path">/jstkdng/ungoogled-chromium/archive/master.zip</param>
+    <param name="path">/Zoraver/ungoogled-chromium/archive/master.zip</param>
     <param name="filename">ungoogled-chromium-master.zip</param>
   </service>
   <service name="tar_scm">

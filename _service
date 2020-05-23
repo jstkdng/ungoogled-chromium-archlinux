@@ -15,8 +15,8 @@
   <service name="download_url">
     <param name="protocol">https</param>
     <param name="host">github.com</param>
-    <param name="path">/Eloston/ungoogled-chromium/archive/81.0.4044.138-1.zip</param>
-    <param name="filename">ungoogled-chromium-81.0.4044.138-1.zip</param>
+    <param name="path">/jstkdng/ungoogled-chromium/archive/master.zip</param>
+    <param name="filename">ungoogled-chromium-master.zip</param>
   </service>
   <service name="tar_scm">
     <param name="scm">git</param>

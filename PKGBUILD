@@ -134,6 +134,9 @@ prepare() {
   # Fix VA-API on Nvidia
   patch -Np1 -i ../vdpau-support.patch
 
+  # Fix VA-API on Intel on Wayland
+  patch -Np1 -i ../fix-intel-vaapi-wayland.patch
+
   # Ungoogled Chromium changes
   _ungoogled_repo="$srcdir/$_pkgname-$_ungoogled_ver"
   _utils="${_ungoogled_repo}/utils"

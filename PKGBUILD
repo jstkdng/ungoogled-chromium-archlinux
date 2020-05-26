@@ -4,13 +4,13 @@
 # Contributor: Daniel J Griffiths <ghost1227@archlinux.us>
 # Contributor: Evangelos Foutras <evangelos@foutrelis.com>
 
-pkgname=ungoogled-chromium
+pkgname=ungoogled-chromium-ozone
 pkgver=83.0.4103.61
 pkgrel=1
 _pkgname=ungoogled-chromium
-_ungoogled_ver=master
+_ungoogled_ver=83.0.4103.61-1
 _launcher_ver=6
-pkgdesc="A lightweight approach to removing Google web service dependency"
+pkgdesc="A lightweight approach to removing Google web service dependency with patches for wayland support via Ozone"
 arch=('x86_64')
 url="https://github.com/ungoogled-software/ungoogled-chromium-archlinux"
 license=('BSD')
@@ -192,6 +192,14 @@ build() {
     'use_custom_libcxx=false'
     'use_vaapi=true'
     'enable_swiftshader=false'
+    'use_ozone=true'
+    'ozone_platform_wayland=true'
+    'ozone_platform_x11=true'
+    'ozone_auto_platforms=false'
+    'use_xkbcommon=true'
+    'use_system_libwayland=true'
+    'use_system_minigbm=true'
+    'use_system_libdrm=true'
   )
 
   if [[ -n ${_system_libs[icu]+set} ]]; then

@@ -10,7 +10,7 @@ pkgrel=1
 _pkgname=ungoogled-chromium
 _ungoogled_ver=83.0.4103.61-1
 _launcher_ver=6
-pkgdesc="A lightweight approach to removing Google web service dependency with patches for wayland support via Ozone"
+pkgdesc="A lightweight approach to removing Google web service dependency"
 arch=('x86_64')
 url="https://github.com/ungoogled-software/ungoogled-chromium-archlinux"
 license=('BSD')
@@ -42,8 +42,7 @@ source=(https://commondatastorage.googleapis.com/chromium-browser-official/chrom
         avoid-double-destruction-of-ServiceWorkerObjectHost.patch
         v8-remove-soon-to-be-removed-getAllFieldPositions.patch
         chromium-83-gcc-10.patch
-        chromium-skia-harmony.patch
-        $_pkgname-$_ungoogled_ver.zip::https://github.com/Eloston/ungoogled-chromium/archive/$_ungoogled_ver.zip)
+        chromium-skia-harmony.patch)
 sha256sums=('4961f20c4ee6a94490e823f1b1c4128147068f1ce9cfc509e81815f2101405bc'
             '04917e3cd4307d8e31bfb0027a5dce6d086edb10ff8a716024fbb8bb0c7dccf1'
             'babda4f5c1179825797496898d77334ac067149cac03d797ab27ac69671a7feb'
@@ -58,8 +57,9 @@ sha256sums=('4961f20c4ee6a94490e823f1b1c4128147068f1ce9cfc509e81815f2101405bc'
             'd793842e9584bf75e3779918297ba0ffa6dd05394ef5b2bf5fb73aa9c86a7e2f'
             'e042024423027ad3ef729a7e4709bdf9714aea49d64cfbbf46a645a05703abc2'
             '3e5ba8c0a70a4bc673deec0c61eb2b58f05a4c784cbdb7c8118be1eb6580db6d'
-            '771292942c0901092a402cc60ee883877a99fb804cb54d568c8c6c94565a48e1'
-            '8ee91b78a23942478ba93faa751181a8c0d74785592b098d68a3aada43520c28')
+            '771292942c0901092a402cc60ee883877a99fb804cb54d568c8c6c94565a48e1')
+source+=($_pkgname-$_ungoogled_ver.zip::https://github.com/Eloston/ungoogled-chromium/archive/$_ungoogled_ver.zip)
+sha256sums+=('8ee91b78a23942478ba93faa751181a8c0d74785592b098d68a3aada43520c28')
 
 # Possible replacements are listed in build/linux/unbundle/replace_gn_files.py
 # Keys are the names in the above script; values are the dependencies in Arch

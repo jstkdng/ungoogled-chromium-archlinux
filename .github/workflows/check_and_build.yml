@@ -1,8 +1,5 @@
-name: Build and Test
-on:
-    push:
-        branches:
-            - master
+name: Check and Build
+on: [push, pull_request]
 
 jobs:
     main:
@@ -18,5 +15,6 @@ jobs:
               shell: bash
               env:
                   OBS_AUTH: ${{ secrets.OBS_AUTH }}
+                  OBS_PROJECT: ungoogled-chromium
               run: .github/workflows/obs_upload.sh
 

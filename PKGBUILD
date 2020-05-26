@@ -29,10 +29,10 @@ provides=('chromium')
 conflicts=('chromium')
 install=chromium.install
 source=(https://commondatastorage.googleapis.com/chromium-browser-official/chromium-$pkgver.tar.xz
-        $_pkgname-$_ungoogled_ver.zip::https://github.com/Eloston/ungoogled-chromium/archive/$_ungoogled_ver.zip
         chromium-launcher-$_launcher_ver.tar.gz::https://github.com/foutrelis/chromium-launcher/archive/v$_launcher_ver.tar.gz
         chromium-drirc-disable-10bpc-color-configs.conf
         vdpau-support.patch
+        fix-intel-vaapi-wayland.patch
         clean-up-a-call-to-set_utf8.patch
         iwyu-std-numeric_limits-is-defined-in-limits.patch
         add-missing-algorithm-header-in-crx_install_error.cc.patch
@@ -44,10 +44,10 @@ source=(https://commondatastorage.googleapis.com/chromium-browser-official/chrom
         chromium-83-gcc-10.patch
         chromium-skia-harmony.patch)
 sha256sums=('4961f20c4ee6a94490e823f1b1c4128147068f1ce9cfc509e81815f2101405bc'
-            'SKIP'
             '04917e3cd4307d8e31bfb0027a5dce6d086edb10ff8a716024fbb8bb0c7dccf1'
             'babda4f5c1179825797496898d77334ac067149cac03d797ab27ac69671a7feb'
             '0ec6ee49113cc8cc5036fa008519b94137df6987bf1f9fbffb2d42d298af868a'
+            'f6335d1e14e4ed865f37695d67df18008c8664778620e698bb46c35b88a8b4c2'
             '58c41713eb6fb33b6eef120f4324fa1fb8123b1fbc4ecbe5662f1f9779b9b6af'
             '675fb3d6276cce569a641436465f58d5709d1d4a5f62b7052989479fd4aaea24'
             '0e2a78e4aa7272ab0ff4a4c467750e01bad692a026ad9828aaf06d2a9418b9d8'
@@ -58,6 +58,10 @@ sha256sums=('4961f20c4ee6a94490e823f1b1c4128147068f1ce9cfc509e81815f2101405bc'
             'e042024423027ad3ef729a7e4709bdf9714aea49d64cfbbf46a645a05703abc2'
             '3e5ba8c0a70a4bc673deec0c61eb2b58f05a4c784cbdb7c8118be1eb6580db6d'
             '771292942c0901092a402cc60ee883877a99fb804cb54d568c8c6c94565a48e1')
+source+=($_pkgname-$_ungoogled_ver.zip::https://github.com/Eloston/ungoogled-chromium/archive/$_ungoogled_ver.zip
+         fix-vaapi-ozone-build.patch)
+sha256sums+=('8ee91b78a23942478ba93faa751181a8c0d74785592b098d68a3aada43520c28'
+             '4e7f98b093518cc402448bdc2e35deec5cd047c0dad5bcc7b1ff2e5ba7da98aa')
 
 # Possible replacements are listed in build/linux/unbundle/replace_gn_files.py
 # Keys are the names in the above script; values are the dependencies in Arch
@@ -132,12 +136,19 @@ prepare() {
   # Fix VA-API on Nvidia
   patch -Np1 -i ../vdpau-support.patch
 
+  # Fix VA-API on Intel on Wayland
+  patch -Np1 -i ../fix-intel-vaapi-wayland.patch
+
+  # Fix vaapi linkage error
+  patch -Np1 -i ../fix-vaapi-ozone-build.patch
+
   # Ungoogled Chromium changes
   _ungoogled_repo="$srcdir/$_pkgname-$_ungoogled_ver"
   _utils="${_ungoogled_repo}/utils"
   python "$_utils/prune_binaries.py" ./ "$_ungoogled_repo/pruning.list"
   python "$_utils/patches.py" apply ./ "$_ungoogled_repo/patches"
-  python "$_utils/domain_substitution.py" apply -r "$_ungoogled_repo/domain_regex.list" -f "$_ungoogled_repo/domain_substitution.list" -c domainsubcache.tar.gz ./
+  python "$_utils/domain_substitution.py" apply -r "$_ungoogled_repo/domain_regex.list" \
+    -f "$_ungoogled_repo/domain_substitution.list" -c domainsubcache.tar.gz ./
 
   # Force script incompatible with Python 3 to use /usr/bin/python2
   sed -i '1s|python$|&2|' third_party/dom_distiller_js/protoc_plugins/*.py

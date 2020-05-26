@@ -23,9 +23,10 @@ sed -r -i \
 
 # Send files to obs
 AUTH="authorization: Basic ${OBS_AUTH}"
+BASE_URL="https://api.opensuse.org/source/home:justkidding:arch/${OBS_PROJECT}"
 for FILE in "${FILES[@]}"
 do
-    URL="https://api.opensuse.org/source/home:justkidding:arch/${OBS_PROJECT}/${FILE}?rev=upload"
+    URL="${BASE_URL}/${FILE}?rev=upload"
     curl -XPUT -H 'Content-Type: application/octet-stream' -H "${AUTH}" --data-binary "@${FILE}" $URL
 done
-curl -XPOST -H "${AUTH}" "https://api.opensuse.org/source/home:justkidding:arch/ungoogled-chromium" -F "cmd=commit"
+curl -XPOST -H "${AUTH}" "${BASE_URL}" -F "cmd=commit"

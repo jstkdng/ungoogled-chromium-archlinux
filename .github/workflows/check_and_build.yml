@@ -15,6 +15,6 @@ jobs:
               shell: bash
               env:
                   OBS_AUTH: ${{ secrets.OBS_AUTH }}
-                  OBS_PROJECT: ungoogled-chromium
+                  OBS_PROJECT: ungoogled-chromium-ozone
               run: .github/workflows/obs_upload.sh
 

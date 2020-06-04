@@ -30,3 +30,4 @@ do
     curl -XPUT -H 'Content-Type: application/octet-stream' -H "${AUTH}" --data-binary "@${FILE}" $URL
 done
 curl -XPOST -H "${AUTH}" "${BASE_URL}" -F "cmd=commit"
+curl -XGET -H "${AUTH}" "${BASE_URL}/_log"

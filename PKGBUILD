@@ -278,8 +278,8 @@ package() {
     v8_context_snapshot.bin
 
     # ANGLE
-    libEGL.so
-    libGLESv2.so
+    #libEGL.so
+    #libGLESv2.so
 
     chromedriver
   )

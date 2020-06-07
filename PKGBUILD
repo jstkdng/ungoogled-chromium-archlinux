@@ -60,7 +60,7 @@ sha256sums=('12c405f61284cfc78f8c2b6600f3c1ae61a83b639c41087bb4f74fcaab036f83'
             '771292942c0901092a402cc60ee883877a99fb804cb54d568c8c6c94565a48e1')
 source+=($_pkgname-$_ungoogled_ver.zip::https://github.com/Eloston/ungoogled-chromium/archive/$_ungoogled_ver.zip
          fix-vaapi-ozone-build.patch)
-sha256sums+=('7a9a1e02ee4ac42beec03ba59cbae0334632f2e56e729c7adc95279f5a84a36b')
+sha256sums+=('7a9a1e02ee4ac42beec03ba59cbae0334632f2e56e729c7adc95279f5a84a36b'
              '4e7f98b093518cc402448bdc2e35deec5cd047c0dad5bcc7b1ff2e5ba7da98aa')
 
 # Possible replacements are listed in build/linux/unbundle/replace_gn_files.py

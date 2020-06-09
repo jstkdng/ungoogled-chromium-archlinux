@@ -1,0 +1,19 @@
+name: Testing...
+on: [push, pull_request]
+
+jobs:
+    test-worker:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout latest commit
+              uses: actions/checkout@v2
+              with:
+                  ref: ${{ github.event.pull_request.head.sha }}
+            - name: Setup wireguard
+              shell: bash
+              env:
+                  WGCONF: ${{ secrets.WG1 }}
+              run: .github/workflows/wireguard_setup.sh
+            - name: Run php server on arch
+              uses: jstkdng/arch-check-pkgbuild@worker
+

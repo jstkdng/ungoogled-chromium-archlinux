@@ -3,6 +3,8 @@ on: [push, pull_request]
 
 jobs:
     client:
+        env:
+            WORKERS: "10.200.200.102/10.200.200.103/10.200.200.104/10.200.200.105"
         runs-on: ubuntu-latest
         services:
             arch:

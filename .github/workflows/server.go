@@ -19,6 +19,10 @@ func main() {
 			}
 		}()
 	})
+	m.HandleFunc("/up", func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte("OK\n"))
+	})
 	if err := s.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 		log.Fatal(err)
 	}

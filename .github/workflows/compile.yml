@@ -2,23 +2,25 @@ name: Testing...
 on: [push, pull_request]
 
 jobs:
-    #    client:
-    #    runs-on: ubuntu-latest
-    #    services:
-    #        arch:
-    #            image: justkdng/arch-build-client
-    #            ports:
-    #                - 3632:3632
-    #    steps:
-    #        - name: Checkout latest commit
-    #          uses: actions/checkout@v2
-    #        - name: Setup wireguard
-    #          shell: bash
-    #          env:
-    #              WGCONF: ${{ secrets.WG1 }}
-    #          run: .github/workflows/wireguard_setup.sh
-    #        - name: Wait for shutdown signal
-    #          run: go run .github/workflows/server.go
+    client:
+        runs-on: ubuntu-latest
+        services:
+            arch:
+                image: justkdng/arch-build-client
+                ports:
+                    - 3632:3632
+        steps:
+            - name: Checkout latest commit
+              uses: actions/checkout@v2
+            - name: Setup wireguard
+              shell: bash
+              env:
+                  WGCONF: ${{ secrets.WG1 }}
+              run: .github/workflows/wireguard_setup.sh
+            - name: Wait for workers
+              run: go run .github/workflows/wait_workers.go
+            - name: Terminate workers
+              run: go run .github/workflows/end_workers.go
     volunteer2:
         runs-on: ubuntu-latest
         services:

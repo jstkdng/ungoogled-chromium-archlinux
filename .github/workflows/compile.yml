@@ -6,6 +6,8 @@ jobs:
         runs-on: ubuntu-latest
         services:
             arch:
+                env:
+                    NAME: "WORKER 1"
                 image: justkdng/arch-build-worker
                 ports:
                     - 8189:8189

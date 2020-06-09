@@ -24,7 +24,7 @@ jobs:
         services:
             arch:
                 env:
-                    DISTCC_ARGS: "--allow-private --listen 10.200.200.102"
+                    DISTCC_ARGS: "--allow-private --allow 10.200.200.103"
                 image: justkdng/arch-build-worker
                 ports:
                     - 3632:3632

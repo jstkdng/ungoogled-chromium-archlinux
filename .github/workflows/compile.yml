@@ -4,6 +4,10 @@ on: [push, pull_request]
 jobs:
     test-worker:
         runs-on: ubuntu-latest
+        services:
+            arch:
+                image: jstkdng/arch-check-pkgbuild@worker
+                ports: 8189:8189
         steps:
             - name: Checkout latest commit
               uses: actions/checkout@v2
@@ -14,6 +18,3 @@ jobs:
               env:
                   WGCONF: ${{ secrets.WG1 }}
               run: .github/workflows/wireguard_setup.sh
-            - name: Run php server on arch
-              uses: jstkdng/arch-check-pkgbuild@worker
-

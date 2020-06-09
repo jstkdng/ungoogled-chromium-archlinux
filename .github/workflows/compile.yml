@@ -19,12 +19,12 @@ jobs:
     #          run: .github/workflows/wireguard_setup.sh
     #        - name: Wait for shutdown signal
     #          run: go run .github/workflows/server.go
-    volunteer1:
+    volunteer2:
         runs-on: ubuntu-latest
         services:
             arch:
                 env:
-                    DISTCC_ARGS: "--allow-private --allow 10.200.200.103"
+                    DISTCC_ARGS: "--allow-private --allow 10.200.200.101"
                 image: justkdng/arch-build-worker
                 ports:
                     - 3632:3632
@@ -35,6 +35,63 @@ jobs:
               shell: bash
               env:
                   WGCONF: ${{ secrets.WG2 }}
+              run: .github/workflows/wireguard_setup.sh
+            - name: Wait for shutdown signal
+              run: go run .github/workflows/server.go
+    volunteer3:
+        runs-on: ubuntu-latest
+        services:
+            arch:
+                env:
+                    DISTCC_ARGS: "--allow-private --allow 10.200.200.101"
+                image: justkdng/arch-build-worker
+                ports:
+                    - 3632:3632
+        steps:
+            - name: Checkout latest commit
+              uses: actions/checkout@v2
+            - name: Setup wireguard
+              shell: bash
+              env:
+                  WGCONF: ${{ secrets.WG3 }}
+              run: .github/workflows/wireguard_setup.sh
+            - name: Wait for shutdown signal
+              run: go run .github/workflows/server.go
+    volunteer4:
+        runs-on: ubuntu-latest
+        services:
+            arch:
+                env:
+                    DISTCC_ARGS: "--allow-private --allow 10.200.200.101"
+                image: justkdng/arch-build-worker
+                ports:
+                    - 3632:3632
+        steps:
+            - name: Checkout latest commit
+              uses: actions/checkout@v2
+            - name: Setup wireguard
+              shell: bash
+              env:
+                  WGCONF: ${{ secrets.WG4 }}
+              run: .github/workflows/wireguard_setup.sh
+            - name: Wait for shutdown signal
+              run: go run .github/workflows/server.go
+    volunteer5:
+        runs-on: ubuntu-latest
+        services:
+            arch:
+                env:
+                    DISTCC_ARGS: "--allow-private --allow 10.200.200.101"
+                image: justkdng/arch-build-worker
+                ports:
+                    - 3632:3632
+        steps:
+            - name: Checkout latest commit
+              uses: actions/checkout@v2
+            - name: Setup wireguard
+              shell: bash
+              env:
+                  WGCONF: ${{ secrets.WG5 }}
               run: .github/workflows/wireguard_setup.sh
             - name: Wait for shutdown signal
               run: go run .github/workflows/server.go

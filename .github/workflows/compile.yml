@@ -6,7 +6,7 @@ jobs:
         runs-on: ubuntu-latest
         services:
             arch:
-                image: jstkdng/arch-build-worker
+                image: justkdng/arch-build-worker
                 ports:
                     - 8189:8189
         steps:

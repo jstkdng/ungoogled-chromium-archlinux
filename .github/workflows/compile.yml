@@ -23,7 +23,7 @@ jobs:
               run: .github/workflows/wireguard_setup.sh
             - name: Show makepkg log
               run: |
-                  tail -F greet.txt
+                  tail -F .github/workflows/logfile
     volunteer2:
         runs-on: ubuntu-20.04
         services:

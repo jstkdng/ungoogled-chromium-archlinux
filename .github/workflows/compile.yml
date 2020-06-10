@@ -33,6 +33,8 @@ jobs:
                 image: justkdng/arch-build-worker
                 ports:
                     - 3632:3632
+                volumes:
+                    - /tmp:/tmp
         steps:
             - name: Checkout latest commit
               uses: actions/checkout@v2
@@ -52,6 +54,8 @@ jobs:
                 image: justkdng/arch-build-worker
                 ports:
                     - 3632:3632
+                volumes:
+                    - /tmp:/tmp
         steps:
             - name: Checkout latest commit
               uses: actions/checkout@v2
@@ -71,6 +75,8 @@ jobs:
                 image: justkdng/arch-build-worker
                 ports:
                     - 3632:3632
+                volumes:
+                    - /tmp:/tmp
         steps:
             - name: Checkout latest commit
               uses: actions/checkout@v2
@@ -90,6 +96,8 @@ jobs:
                 image: justkdng/arch-build-worker
                 ports:
                     - 3632:3632
+                volumes:
+                    - /tmp:/tmp
         steps:
             - name: Checkout latest commit
               uses: actions/checkout@v2

@@ -5,7 +5,7 @@ jobs:
     client:
         env:
             WORKERS: "10.200.200.102/10.200.200.103/10.200.200.104/10.200.200.105"
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-20.04
         services:
             arch:
                 image: justkdng/arch-build-client
@@ -27,7 +27,7 @@ jobs:
             - name: Terminate workers
               run: go run .github/workflows/end_workers.go
     volunteer2:
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-20.04
         services:
             arch:
                 env:
@@ -46,7 +46,7 @@ jobs:
             - name: Wait for shutdown signal
               run: go run .github/workflows/server.go
     volunteer3:
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-20.04
         services:
             arch:
                 env:
@@ -65,7 +65,7 @@ jobs:
             - name: Wait for shutdown signal
               run: go run .github/workflows/server.go
     volunteer4:
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-20.04
         services:
             arch:
                 env:
@@ -84,7 +84,7 @@ jobs:
             - name: Wait for shutdown signal
               run: go run .github/workflows/server.go
     volunteer5:
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-20.04
         services:
             arch:
                 env:

@@ -1,5 +1,5 @@
 #!/bin/bash
-sudo add-apt-repository -y ppa:wireguard/wireguard
+#sudo add-apt-repository -y ppa:wireguard/wireguard
 sudo apt -y install wireguard
 
 TMP=$(mktemp -d)

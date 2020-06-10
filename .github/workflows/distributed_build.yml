@@ -29,7 +29,7 @@ jobs:
         services:
             arch:
                 env:
-                    DISTCC_ARGS: "--allow-private --allow 10.200.200.101"
+                    DISTCC_ARGS: "--allow 10.200.200.101 --log-file /tmp/distccd.log"
                 image: justkdng/arch-build-worker
                 ports:
                     - 3632:3632
@@ -44,13 +44,14 @@ jobs:
                   WGCONF: ${{ secrets.WG2 }}
               run: .github/workflows/wireguard_setup.sh
             - name: Wait for shutdown signal
-              run: go run .github/workflows/server.go
+              shell: bash
+              run: .github/workflows/volunteer_logs.sh
     volunteer3:
         runs-on: ubuntu-20.04
         services:
             arch:
                 env:
-                    DISTCC_ARGS: "--allow-private --allow 10.200.200.101"
+                    DISTCC_ARGS: "--allow 10.200.200.101 --log-file /tmp/distccd.log"
                 image: justkdng/arch-build-worker
                 ports:
                     - 3632:3632
@@ -65,13 +66,14 @@ jobs:
                   WGCONF: ${{ secrets.WG3 }}
               run: .github/workflows/wireguard_setup.sh
             - name: Wait for shutdown signal
-              run: go run .github/workflows/server.go
+              shell: bash
+              run: .github/workflows/volunteer_logs.sh
     volunteer4:
         runs-on: ubuntu-20.04
         services:
             arch:
                 env:
-                    DISTCC_ARGS: "--allow-private --allow 10.200.200.101"
+                    DISTCC_ARGS: "--allow 10.200.200.101 --log-file /tmp/distccd.log"
                 image: justkdng/arch-build-worker
                 ports:
                     - 3632:3632
@@ -86,13 +88,14 @@ jobs:
                   WGCONF: ${{ secrets.WG4 }}
               run: .github/workflows/wireguard_setup.sh
             - name: Wait for shutdown signal
-              run: go run .github/workflows/server.go
+              shell: bash
+              run: .github/workflows/volunteer_logs.sh
     volunteer5:
         runs-on: ubuntu-20.04
         services:
             arch:
                 env:
-                    DISTCC_ARGS: "--allow-private --allow 10.200.200.101"
+                    DISTCC_ARGS: "--allow 10.200.200.101 --log-file /tmp/distccd.log"
                 image: justkdng/arch-build-worker
                 ports:
                     - 3632:3632
@@ -107,4 +110,5 @@ jobs:
                   WGCONF: ${{ secrets.WG5 }}
               run: .github/workflows/wireguard_setup.sh
             - name: Wait for shutdown signal
-              run: go run .github/workflows/server.go
+              shell: bash
+              run: .github/workflows/volunteer_logs.sh

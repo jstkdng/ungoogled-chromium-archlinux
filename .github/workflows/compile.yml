@@ -1,14 +1,16 @@
-name: Testing...
+name: Start build
 on: [push, pull_request]
 
 jobs:
     client:
-        env:
-            WORKERS: "10.200.200.102/10.200.200.103/10.200.200.104/10.200.200.105"
         runs-on: ubuntu-20.04
         services:
             arch:
                 image: justkdng/arch-build-client
+                env:
+                    WORKERS: "10.200.200.102/10.200.200.103/10.200.200.104/10.200.200.105"
+                volumes:
+                    - /home/runner/work/ungoogled-chromium-archlinux/ungoogled-chromium-archlinux:/home/build/repo
                 ports:
                     - 3632:3632
         steps:
@@ -21,11 +23,7 @@ jobs:
               run: .github/workflows/wireguard_setup.sh
             - name: Show makepkg log
               run: |
-                  pwd
-                  ls -a
-                  tail -F ungoogled-chromium-83.0.4103.97-2-x86_64-build.log
-            - name: Terminate workers
-              run: go run .github/workflows/end_workers.go
+                  tail -F greet.txt
     volunteer2:
         runs-on: ubuntu-20.04
         services:

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #tail -F .github/workflows/logfile&
-tail -F logfile&
+tail -F $GITHUB_WORKSPACE/logfile&
 
 while true; do
     if compgen -G "*.pkg.tar.zst" > /dev/null; then

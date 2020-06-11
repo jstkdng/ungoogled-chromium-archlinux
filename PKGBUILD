@@ -179,8 +179,8 @@ build() {
     export CCACHE_SLOPPINESS=time_macros
   fi
 
-  export CC="distcc clang"
-  export CXX="distcc clang++"
+  export CC=clang
+  export CXX=clang++
   export AR=ar
   export NM=nm
 

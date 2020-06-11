@@ -22,8 +22,7 @@ jobs:
                   WGCONF: ${{ secrets.WG1 }}
               run: .github/workflows/wireguard_setup.sh
             - name: Tail logs
-              shell: bash
-              run: .github/workflows/tail_logs.sh
+              run: tail -F logfile
     volunteer2:
         runs-on: ubuntu-20.04
         services:

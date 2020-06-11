@@ -28,7 +28,7 @@ jobs:
         services:
             arch:
                 env:
-                    DISTCC_ARGS: "--allow 10.200.200.101 --log-file /tmp/distccd.log --verbose"
+                    DISTCC_ARGS: "--allow 10.200.200.101 --log-file /tmp/distccd.log"
                 image: justkdng/arch-chromium-build-volunteer
                 ports:
                     - 3632:3632
@@ -50,7 +50,7 @@ jobs:
         services:
             arch:
                 env:
-                    DISTCC_ARGS: "--allow 10.200.200.101 --log-file /tmp/distccd.log --verbose"
+                    DISTCC_ARGS: "--allow 10.200.200.101 --log-file /tmp/distccd.log"
                 image: justkdng/arch-chromium-build-volunteer
                 ports:
                     - 3632:3632
@@ -72,7 +72,7 @@ jobs:
         services:
             arch:
                 env:
-                    DISTCC_ARGS: "--allow 10.200.200.101 --log-file /tmp/distccd.log --verbose"
+                    DISTCC_ARGS: "--allow 10.200.200.101 --log-file /tmp/distccd.log"
                 image: justkdng/arch-chromium-build-volunteer
                 ports:
                     - 3632:3632
@@ -94,7 +94,7 @@ jobs:
         services:
             arch:
                 env:
-                    DISTCC_ARGS: "--allow 10.200.200.101 --log-file /tmp/distccd.log --verbose"
+                    DISTCC_ARGS: "--allow 10.200.200.101 --log-file /tmp/distccd.log"
                 image: justkdng/arch-chromium-build-volunteer
                 ports:
                     - 3632:3632

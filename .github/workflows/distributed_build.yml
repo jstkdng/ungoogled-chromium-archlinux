@@ -6,7 +6,7 @@ jobs:
         runs-on: ubuntu-20.04
         services:
             arch:
-                image: justkdng/arch-build-client
+                image: justkdng/arch-chromium-build-client
                 env:
                     WORKERS: "10.200.200.102/10.200.200.103/10.200.200.104/10.200.200.105"
                 volumes:
@@ -29,7 +29,7 @@ jobs:
             arch:
                 env:
                     DISTCC_ARGS: "--allow 10.200.200.101 --log-file /tmp/distccd.log"
-                image: justkdng/arch-build-worker
+                image: justkdng/arch-chromium-build-volunteer
                 ports:
                     - 3632:3632
                 volumes:
@@ -51,7 +51,7 @@ jobs:
             arch:
                 env:
                     DISTCC_ARGS: "--allow 10.200.200.101 --log-file /tmp/distccd.log"
-                image: justkdng/arch-build-worker
+                image: justkdng/arch-chromium-build-volunteer
                 ports:
                     - 3632:3632
                 volumes:
@@ -73,7 +73,7 @@ jobs:
             arch:
                 env:
                     DISTCC_ARGS: "--allow 10.200.200.101 --log-file /tmp/distccd.log"
-                image: justkdng/arch-build-worker
+                image: justkdng/arch-chromium-build-volunteer
                 ports:
                     - 3632:3632
                 volumes:
@@ -95,7 +95,7 @@ jobs:
             arch:
                 env:
                     DISTCC_ARGS: "--allow 10.200.200.101 --log-file /tmp/distccd.log"
-                image: justkdng/arch-build-worker
+                image: justkdng/arch-chromium-build-volunteer
                 ports:
                     - 3632:3632
                 volumes:

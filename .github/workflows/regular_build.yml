@@ -13,7 +13,10 @@ jobs:
             - name: Checkout latest commit
               uses: actions/checkout@v2
             - name: Finished getting sources
-              run: touch done_download
+              run: |
+                  id --user > uid
+                  id --group > gid
+                  touch done_download
             - name: Tail logs
               shell: bash
               run: .github/workflows/tail_logs.sh

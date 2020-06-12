@@ -51,7 +51,7 @@ jobs:
               uses: actions/upload-artifact@v2
               with:
                   name: Resulting package
-                  path: *.pkg.tar.zst
+                  path: '**/pkg.tar.zst'
             - name: Upload log file
               uses: actions/upload-artifact@v2
               with:

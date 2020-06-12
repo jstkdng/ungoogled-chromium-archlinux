@@ -15,5 +15,6 @@ jobs:
               run: |
                   pwd
                   ls -a
+                  stat PKGBUILD
                   id
                   echo $HOME

@@ -8,18 +8,17 @@ jobs:
             arch:
                 image: justkdng/arch-chromium-build-regular
                 volumes:
-                    - /home/runner/work/ungoogled-chromium-archlinux/ungoogled-chromium-archlinux:/home/build/repo
+                    - ${GITHUB_WORKSPACE}:/home/build/repo
         steps:
             - name: Checkout latest commit
               uses: actions/checkout@v2
-            - name: Finished getting sources
-              run: |
-                  id --user > uid
-                  id --group > gid
-                  touch done_download
-            - name: Tail logs
+            - name: Signal container to start building
+              run: touch start_build
+            - name: Wait for build to finish
               shell: bash
               run: .github/workflows/tail_logs.sh
+            - name: Restore permissions
+              run: sudo chown -R runner $GITHUB_WORKSPACE
             - name: Upload srcdir
               uses: actions/upload-artifact@v2
               with:
@@ -39,17 +38,19 @@ jobs:
                     RESUME: 1
                 image: justkdng/arch-chromium-build-regular
                 volumes:
-                    - /home/runner/work/ungoogled-chromium-archlinux/ungoogled-chromium-archlinux:/home/build/repo
+                    - ${GITHUB_WORKSPACE}:/home/build/repo
         steps:
             - name: Checkout latest commit
               uses: actions/checkout@v2
             - name: Download all artifacts
               uses: actions/download-artifact@v2
-            - name: Finished getting sources
-              run: touch done_download
-            - name: Tail logs
+            - name: Signal container to start building
+              run: touch start_build
+            - name: Wait for build to finish
               shell: bash
               run: .github/workflows/tail_logs.sh
+            - name: Restore permissions
+              run: sudo chown -R runner $GITHUB_WORKSPACE
             - name: Upload resulting package
               uses: actions/upload-artifact@v2
               with:

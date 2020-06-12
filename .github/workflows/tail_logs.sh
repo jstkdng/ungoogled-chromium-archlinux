@@ -1,12 +1,12 @@
 #!/bin/bash
 
-#tail -F .github/workflows/logfile&
-tail -F $GITHUB_WORKSPACE/logfile&
+tail -F logfile&
+PID=$!
 
-while true; do
-    if compgen -G "*.pkg.tar.zst" > /dev/null; then
-        exit 0
-    else
-        sleep 2
-    fi
+# wait for build to finish
+while [ ! -f done_build ]
+do
+    sleep 2
 done
+
+kill -TERM $PID

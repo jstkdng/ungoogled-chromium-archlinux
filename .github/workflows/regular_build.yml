@@ -2,7 +2,7 @@ name: Start build
 on: [push, pull_request]
 
 jobs:
-    main:
+    build1:
         runs-on: ubuntu-20.04
         services:
             arch:
@@ -12,5 +12,52 @@ jobs:
         steps:
             - name: Checkout latest commit
               uses: actions/checkout@v2
+            - name: Finished getting sources
+              run: touch done_download
             - name: Tail logs
-              run: tail -F logfile
+              shell: bash
+              run: .github/workflows/tail_logs.sh
+            - name: Upload srcdir
+              uses: actions/upload-artifact@v2
+              with:
+                  name: srcdir
+                  path: src/
+            - name: Upload log file
+              uses: actions/upload-artifact@v2
+              with:
+                  name: logfile
+                  path: logfile
+    build2:
+        runs-on: ubuntu-20.04
+        needs: build1
+        services:
+            arch:
+                env:
+                    RESUME: 1
+                image: justkdng/arch-chromium-build-regular
+                volumes:
+                    - /home/runner/work/ungoogled-chromium-archlinux/ungoogled-chromium-archlinux:/home/build/repo
+        steps:
+            - name: Checkout latest commit
+              uses: actions/checkout@v2
+            - name: Download all artifacts
+              uses: actions/download-artifact@v2
+            - name: Finished getting sources
+              run: touch done_download
+            - name: Tail logs
+              shell: bash
+              run: .github/workflows/tail_logs.sh
+            - name: Upload resulting package
+              uses: actions/upload-artifact@v2
+              with:
+                  name: Resulting package
+                  path: *.pkg.tar.zst
+            - name: Upload log file
+              uses: actions/upload-artifact@v2
+              with:
+                  name: logfile
+                  path: logfile
+            - name: Delete artifact
+              uses: geekyeggo/delete-artifact@v1
+              with:
+                  name: srcdir

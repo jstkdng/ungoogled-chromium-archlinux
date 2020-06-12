@@ -2,7 +2,7 @@ name: Start build
 on: [push, pull_request]
 
 jobs:
-    build1:
+    prepare_sources:
         runs-on: ubuntu-20.04
         container:
             image: justkdng/arch-build-chromium
@@ -10,5 +10,18 @@ jobs:
             - name: Checkout latest commit
               uses: actions/checkout@v2
             - name: View files
-              run: |
-                  ls -a $HOME
+              run: echo "Test artifact" >> art.txt
+            - name: Upload test file
+              uses: actions/upload-artifact@v2
+              with:
+                  name: art.txt
+                  path: art.txt
+    build_stage_1:
+        runs-on: ubuntu-20.04
+        needs: prepare_sources
+        container:
+            image: justkdng/arch-build-chromium
+        steps:
+            - name: Download artifacts
+              uses: actions/download-artifact@v2
+            - run: cat art.txt

@@ -1,0 +1,19 @@
+name: Start build
+on: [push, pull_request]
+
+jobs:
+    build1:
+        runs-on: ubuntu-20.04
+        container:
+            image: justkdng/arch-build-chromium
+        steps:
+            - name: Switch user
+              run: su build
+            - name: Checkout latest commit
+              uses: actions/checkout@v2
+            - name: View files
+              run: |
+                  ls
+                  pwd
+                  uname -a
+                  id

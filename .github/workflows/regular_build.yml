@@ -19,11 +19,15 @@ jobs:
               run: .github/workflows/tail_logs.sh
             - name: Restore permissions
               run: sudo chown -R runner $GITHUB_WORKSPACE
+            - name: Compress srcdir
+              run: tar caf srcdir.tar.zst src/ --remove-files
+            - name: View src size
+              run: du -shc srcdir.tar.zst
             - name: Upload srcdir
               uses: actions/upload-artifact@v2
               with:
                   name: srcdir
-                  path: src/
+                  path: srcdir.tar.zst
             - name: Upload log file
               uses: actions/upload-artifact@v2
               with:

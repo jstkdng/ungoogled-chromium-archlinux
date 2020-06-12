@@ -1,20 +1,22 @@
 name: Check and Build
-on: release
+on: [push,pull_request]
 
 jobs:
     main:
         runs-on: ubuntu-latest
         steps:
-            - name: Checkout latest commit
-              uses: actions/checkout@v2
-              with:
-                  ref: ${{ github.event.pull_request.head.sha }}
-            - name: Run makepkg
-              uses: jstkdng/arch-check-pkgbuild@master
-            - name: Trigger OBS build
-              shell: bash
-              env:
-                  OBS_AUTH: ${{ secrets.OBS_AUTH }}
-                  OBS_PROJECT: ungoogled-chromium
-              run: .github/workflows/obs_upload.sh
+            #- name: Checkout latest commit
+            #  uses: actions/checkout@v2
+            #  with:
+            #      ref: ${{ github.event.pull_request.head.sha }}
+            #- name: Run makepkg
+            #  uses: jstkdng/arch-check-pkgbuild@master
+            #- name: Trigger OBS build
+            #  shell: bash
+            #  env:
+            #      OBS_AUTH: ${{ secrets.OBS_AUTH }}
+            #      OBS_PROJECT: ungoogled-chromium
+            #  run: .github/workflows/obs_upload.sh
+            - name: show user
+              run: id
 

@@ -7,13 +7,14 @@ jobs:
         container:
             image: justkdng/arch-build-chromium
         steps:
-            - name: Switch user
-              run: su build
             - name: Checkout latest commit
               uses: actions/checkout@v2
             - name: View files
               run: |
+                  cd /github/home
                   ls
                   pwd
                   uname -a
                   id
+                  stat /github/home
+                  stat PKGBUILD

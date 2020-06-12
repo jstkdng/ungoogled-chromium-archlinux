@@ -8,7 +8,7 @@ jobs:
             arch:
                 image: justkdng/arch-chromium-build-regular
                 volumes:
-                    - ${GITHUB_WORKSPACE}:/home/build/repo
+                    - /home/runner/work/ungoogled-chromium-archlinux/ungoogled-chromium-archlinux:/home/build/repo
         steps:
             - name: Checkout latest commit
               uses: actions/checkout@v2
@@ -38,7 +38,7 @@ jobs:
                     RESUME: 1
                 image: justkdng/arch-chromium-build-regular
                 volumes:
-                    - ${GITHUB_WORKSPACE}:/home/build/repo
+                    - /home/runner/work/ungoogled-chromium-archlinux/ungoogled-chromium-archlinux:/home/build/repo
         steps:
             - name: Checkout latest commit
               uses: actions/checkout@v2

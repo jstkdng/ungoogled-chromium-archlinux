@@ -15,7 +15,7 @@ jobs:
               shell: bash
               run: |
                   shopt -s dotglob
-                  cp * /home/build
+                  cp -r * /home/build
                   chown -R build /home/build
                   su build
                   cd /home/build

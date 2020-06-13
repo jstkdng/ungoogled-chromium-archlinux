@@ -1,8 +1,10 @@
 #!/bin/bash
 cd $HOME
-echo " ==== Building ===="
+echo " ==== Resuming build... ===="
 timeout -k 10m -s SIGTERM 5h makepkg --noextract --nodeps --noarchive
-echo " ==== Creating src archive ===="
+echo " ==== Size of src/ directory ===="
+du -shc src/
+echo " ==== Compressing src/ directory ===="
 tar caf src.tar.zst src/ --remove-file -H posix --atime-preserve
-echo " ==== Resulting file sizes ===="
-du -shc *
+echo " ==== Size of src/ archive ===="
+du -shc src.tar.zst

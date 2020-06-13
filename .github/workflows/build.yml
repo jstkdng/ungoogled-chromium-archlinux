@@ -11,9 +11,14 @@ jobs:
               uses: actions/checkout@v2
             - name: Update system
               run: pacman -Syu --noconfirm
-            - name: Build package
+            - name: Copy build files
               shell: bash
-              run: .github/workflows/build_script.sh
+              run: |
+                  shopt -s dotglob
+                  cp -r * /home/build
+                  chown -R build /home/build
+            - name: Build package
+              run: sudo -u build -H bash -c .github/workflows/build_script.sh
             - name: Upload source dir
               uses: actions/upload-artifact@v2
               with:

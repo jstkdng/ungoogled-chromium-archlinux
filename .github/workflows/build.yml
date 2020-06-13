@@ -24,4 +24,6 @@ jobs:
         steps:
             - name: Download artifacts
               uses: actions/download-artifact@v2
-            - run: cat art.txt
+            - run: |
+                stat art.txt
+                ls -a art.txt

@@ -6,6 +6,8 @@ jobs:
         runs-on: ubuntu-20.04
         container:
             image: justkdng/arch-build-chromium
+            volumes:
+                - /tmp:/tmp
         steps:
             - name: Checkout latest commit
               uses: actions/checkout@v2

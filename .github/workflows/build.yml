@@ -13,14 +13,7 @@ jobs:
               run: pacman -Syu --noconfirm
             - name: Build package
               shell: bash
-              run: |
-                  shopt -s dotglob
-                  cp -r * /home/build
-                  chown -R build /home/build
-                  su build
-                  cd /home/build
-                  makepkg --nobuild --nodeps
-                  tar caf srcdir.tar.zst src/ --remove-file -H posix --atime-preserve
+              run: .github/workflows/build_script.sh
             - name: Upload source dir
               uses: actions/upload-artifact@v2
               with:

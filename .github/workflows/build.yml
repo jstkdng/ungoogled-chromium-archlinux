@@ -9,21 +9,20 @@ jobs:
         steps:
             - name: Checkout latest commit
               uses: actions/checkout@v2
-            - name: View files
-              run: echo "Test artifact" >> art.txt
-            - name: Upload test file
+            - name: Update system
+              run: pacman -Syu --noconfirm
+            - name: Build package
+              shell: bash
+              run: |
+                  shopt -s dotglob
+                  cp * /home/build
+                  chown -R build /home/build
+                  su build
+                  cd /home/build
+                  makepkg --nobuild --nodeps
+                  tar caf srcdir.tar.zst src/ --remove-file -H posix --atime-preserve
+            - name: Upload source dir
               uses: actions/upload-artifact@v2
               with:
-                  name: art.txt
-                  path: art.txt
-    build_stage_1:
-        runs-on: ubuntu-20.04
-        needs: prepare_sources
-        container:
-            image: justkdng/arch-build-chromium
-        steps:
-            - name: Download artifacts
-              uses: actions/download-artifact@v2
-            - run: |
-                stat art.txt
-                ls -a art.txt
+                  name: srcdir.tar.zst
+                  path: /home/build/srcdir.tar.zst

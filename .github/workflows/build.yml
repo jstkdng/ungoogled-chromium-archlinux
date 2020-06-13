@@ -11,16 +11,36 @@ jobs:
               uses: actions/checkout@v2
             - name: Update system
               run: pacman -Syu --noconfirm
-            - name: Copy build files
-              shell: bash
-              run: |
-                  shopt -s dotglob
-                  cp -r * /home/build
-                  chown -R build /home/build
-            - name: Build package
-              run: sudo -u build -H bash -c .github/workflows/build_script.sh
-            - name: Upload source dir
+            - name: Setup environment
+              run: .github/workflows/build/env.sh
+            - name: Prepare sources
+              run: sudo -u build -H bash -c .github/workflows/build/prepare.sh
+            - name: Upload sources
               uses: actions/upload-artifact@v2
               with:
-                  name: srcdir.tar.zst
-                  path: /home/build/srcdir.tar.zst
+                  name: src
+                  path: /home/build/src.tar.zst
+    build_step_1:
+        runs-on: ubuntu-20.04
+        needs: prepare_sources
+        container:
+            image: justkdng/arch-build-chromium
+        steps:
+            - name: Checkout latest commit
+              uses: actions/checkout@v2
+            - name: Download artifacts
+              uses: actions/download-artifact@v2
+            - name: Update system
+              run: pacman -Syu --noconfirm
+            - name: Setup environment
+              run: .github/workflows/build/env.sh
+            - name: Extract sources
+              run: .github/workflows/build/extract.sh
+            - name: Build package
+              run: sudo -u build -H bash -c .github/workflows/build/build.sh
+            - name: Upload sources
+              uses: actions/upload-artifact@v2
+              with:
+                  name: src
+                  path: /home/build/src.tar.zst
+        

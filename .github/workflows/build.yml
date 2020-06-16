@@ -18,7 +18,7 @@ jobs:
             - name: Upload sources
               uses: actions/upload-artifact@v2
               with:
-                  name: src
+                  name: src1
                   path: /home/build/src.tar.zst
     build_1:
         runs-on: ubuntu-20.04
@@ -30,10 +30,12 @@ jobs:
               uses: actions/checkout@v2
             - name: Download artifacts
               uses: actions/download-artifact@v2
+              with:
+                  name: src1
             #- name: Delete src artifact
             #  uses: geekyeggo/delete-artifact@v1
             #  with:
-            #      name: src
+            #      name: src1
             - name: Update system
               run: pacman -Syu --noconfirm
             - name: Setup environment
@@ -45,7 +47,7 @@ jobs:
             - name: Upload sources
               uses: actions/upload-artifact@v2
               with:
-                  name: src
+                  name: src2
                   path: /home/build/src.tar.zst
     build_2:
         runs-on: ubuntu-20.04
@@ -57,10 +59,12 @@ jobs:
               uses: actions/checkout@v2
             - name: Download artifacts
               uses: actions/download-artifact@v2
-            #- name: Delete src artifact
+              with:
+                  name: src2
+            # - name: Delete src artifact
             #  uses: geekyeggo/delete-artifact@v1
             #  with:
-            #      name: src
+            #      name: src2
             - name: Update system
               run: pacman -Syu --noconfirm
             - name: Setup environment
@@ -72,7 +76,7 @@ jobs:
             - name: Upload sources
               uses: actions/upload-artifact@v2
               with:
-                  name: src
+                  name: src3
                   path: /home/build/src.tar.zst
     package:
         runs-on: ubuntu-20.04
@@ -84,6 +88,12 @@ jobs:
               uses: actions/checkout@v2
             - name: Download artifacts
               uses: actions/download-artifact@v2
+              with:
+                  name: src3
+            #- name: Delete src artifact
+            #  uses: geekyeggo/delete-artifact@v1
+            #  with:
+            #      name: src3
             - name: Update system
               run: pacman -Syu --noconfirm
             - name: Setup environment
@@ -97,9 +107,5 @@ jobs:
               with:
                   name: artifact
                   path: /home/build/artifacts
-            #- name: Delete src artifact
-            #  uses: geekyeggo/delete-artifact@v1
-            #  with:
-            #      name: src
 
         

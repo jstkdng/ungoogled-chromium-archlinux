@@ -1,7 +1,5 @@
 #!/bin/bash
 
-cd src
-
 echo "==> Resulting sha256sum of src/ archive"
 sha256sum src.tar.zst
 

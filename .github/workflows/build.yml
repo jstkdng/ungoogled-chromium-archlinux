@@ -30,10 +30,10 @@ jobs:
               uses: actions/checkout@v2
             - name: Download artifacts
               uses: actions/download-artifact@v2
-            - name: Delete src artifact
-              uses: geekyeggo/delete-artifact@v1
-              with:
-                  name: src
+            #- name: Delete src artifact
+            #  uses: geekyeggo/delete-artifact@v1
+            #  with:
+            #      name: src
             - name: Update system
               run: pacman -Syu --noconfirm
             - name: Setup environment
@@ -57,10 +57,10 @@ jobs:
               uses: actions/checkout@v2
             - name: Download artifacts
               uses: actions/download-artifact@v2
-            - name: Delete src artifact
-              uses: geekyeggo/delete-artifact@v1
-              with:
-                  name: src
+            #- name: Delete src artifact
+            #  uses: geekyeggo/delete-artifact@v1
+            #  with:
+            #      name: src
             - name: Update system
               run: pacman -Syu --noconfirm
             - name: Setup environment
@@ -97,9 +97,9 @@ jobs:
               with:
                   name: artifact
                   path: /home/build/artifacts
-            - name: Delete src artifact
-              uses: geekyeggo/delete-artifact@v1
-              with:
-                  name: src
+            #- name: Delete src artifact
+            #  uses: geekyeggo/delete-artifact@v1
+            #  with:
+            #      name: src
 
         

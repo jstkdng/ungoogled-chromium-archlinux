@@ -11,6 +11,11 @@ jobs:
               uses: actions/checkout@v2
             - name: Update system
               run: pacman -Syu --noconfirm
+            - run: |
+                nproc
+                free -h
+                mount
+                exit 1
             - name: Setup environment
               run: .github/workflows/build/env.sh
             - name: Prepare sources

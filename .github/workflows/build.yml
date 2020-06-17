@@ -13,6 +13,7 @@ jobs:
               run: pacman -Syu --noconfirm
             - run: |
                 nproc
+                pacman -S --noconfirm procps-ng
                 free -h
                 mount
                 exit 1

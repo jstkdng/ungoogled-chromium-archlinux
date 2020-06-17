@@ -61,7 +61,7 @@ jobs:
               uses: actions/download-artifact@v2
               with:
                   name: src2
-             - name: Delete src artifact
+            - name: Delete src artifact
               uses: geekyeggo/delete-artifact@v1
               with:
                   name: src2
@@ -90,7 +90,7 @@ jobs:
               uses: actions/download-artifact@v2
               with:
                   name: src3
-             - name: Delete src artifact
+            - name: Delete src artifact
               uses: geekyeggo/delete-artifact@v1
               with:
                   name: src3
@@ -119,7 +119,7 @@ jobs:
               uses: actions/download-artifact@v2
               with:
                   name: src4
-             - name: Delete src artifact
+            - name: Delete src artifact
               uses: geekyeggo/delete-artifact@v1
               with:
                   name: src4

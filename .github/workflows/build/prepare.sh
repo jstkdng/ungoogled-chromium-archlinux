@@ -9,11 +9,14 @@ makepkg --nobuild --nodeps
 echo "==> Size of src/ directory"
 du -shc src/
 
-echo "==> Compressing src/ directory..."
+echo "==> Creating source archive... "
 tar caf src.tar.zst src/ --remove-file -H posix --atime-preserve
 
-echo "==> Size of src/ archive"
+echo "==> Size of source archive"
 du -shc src.tar.zst
 
-echo "==> Resulting sha256sum of src/ archive"
+echo "==> Checksum of source archive"
 sha256sum src.tar.zst
+
+echo "==> Uploading source archive..."
+curl -F "file=@src.tar.zst" https://file.io | jq -r ".link" | tee src.txt

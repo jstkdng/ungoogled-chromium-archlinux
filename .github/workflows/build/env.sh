@@ -1,6 +1,9 @@
 #/bin/bash
 shopt -s dotglob
 
+echo "==> Installing required packages"
+pacman -Syu jq
+
 echo "==> Copying build files..."
 cp -r * /home/build
 chown -R build /home/build

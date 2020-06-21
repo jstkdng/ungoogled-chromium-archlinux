@@ -40,6 +40,7 @@ jobs:
                   name: src
                   path: /home/build/src.txt
             - name: Upload resulting package
+              uses: actions/upload-artifact@v2
               if: failure()
               with:
                   name: pkg
@@ -66,6 +67,7 @@ jobs:
                   name: src
                   path: /home/build/src.txt
             - name: Upload resulting package
+              uses: actions/upload-artifact@v2
               if: failure()
               with:
                   name: pkg
@@ -92,6 +94,7 @@ jobs:
                   name: src
                   path: /home/build/src.txt
             - name: Upload resulting package
+              uses: actions/upload-artifact@v2
               if: failure()
               with:
                   name: pkg
@@ -118,6 +121,7 @@ jobs:
                   name: src
                   path: /home/build/src.txt
             - name: Upload resulting package
+              uses: actions/upload-artifact@v2
               if: failure()
               with:
                   name: pkg

@@ -1,5 +1,5 @@
 name: Check and Build
-on: release
+on: [push, pull_request]
 
 jobs:
     main:

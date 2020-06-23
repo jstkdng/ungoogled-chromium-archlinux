@@ -1,5 +1,5 @@
 name: Build ungoogled chromium
-on: [push, pull_request]
+on: release
 
 jobs:
     prepare:

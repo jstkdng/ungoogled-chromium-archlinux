@@ -8,7 +8,7 @@ pkgname=ungoogled-chromium-git
 pkgver=83.0.4103.97.1.r0.ga0af46a
 pkgrel=1
 _pkgname=ungoogled-chromium
-_pkgver=83.0.4103.97
+_pkgver=83.0.4103.106
 _ungoogled_ver=master
 _launcher_ver=6
 pkgdesc="A lightweight approach to removing Google web service dependency (master branch)"
@@ -19,17 +19,17 @@ depends=('gtk3' 'nss' 'alsa-lib' 'xdg-utils' 'libxss' 'libcups' 'libgcrypt'
          'ttf-liberation' 'systemd' 'dbus' 'libpulse' 'pciutils' 'json-glib' 'libva'
          'desktop-file-utils' 'hicolor-icon-theme')
 makedepends=('python' 'python2' 'gperf' 'yasm' 'mesa' 'ninja' 'nodejs' 'git'
-             'libpipewire02' 'clang' 'lld' 'gn' 'java-runtime-headless'
+             'libpipewire02' 'libva' 'clang' 'lld' 'gn' 'java-runtime-headless'
              'python2-setuptools')
 optdepends=('pepper-flash: support for Flash content'
             'libpipewire02: WebRTC desktop sharing under Wayland'
+            'libva: hardware-accelerated video decode (experimental)'
             'kdialog: needed for file dialogs in KDE'
             'org.freedesktop.secrets: password storage backend on GNOME / Xfce'
             'kwallet: for storing passwords in KWallet on KDE desktops')
 provides=('chromium')
 conflicts=('chromium')
 install=chromium.install
-options=(!strip)
 source=(https://commondatastorage.googleapis.com/chromium-browser-official/chromium-$_pkgver.tar.xz
         chromium-launcher-$_launcher_ver.tar.gz::https://github.com/foutrelis/chromium-launcher/archive/v$_launcher_ver.tar.gz
         chromium-drirc-disable-10bpc-color-configs.conf
@@ -45,7 +45,7 @@ source=(https://commondatastorage.googleapis.com/chromium-browser-official/chrom
         v8-remove-soon-to-be-removed-getAllFieldPositions.patch
         chromium-83-gcc-10.patch
         chromium-skia-harmony.patch)
-sha256sums=('12c405f61284cfc78f8c2b6600f3c1ae61a83b639c41087bb4f74fcaab036f83'
+sha256sums=('cfd153a2e10b0bb0fb3b7e6be543aef0915181f5fbdbea893d08465afd097e2f'
             '04917e3cd4307d8e31bfb0027a5dce6d086edb10ff8a716024fbb8bb0c7dccf1'
             'babda4f5c1179825797496898d77334ac067149cac03d797ab27ac69671a7feb'
             '0ec6ee49113cc8cc5036fa008519b94137df6987bf1f9fbffb2d42d298af868a'
@@ -254,10 +254,11 @@ package() {
 
   install -Dm644 chrome/installer/linux/common/chromium-browser/chromium-browser.appdata.xml \
     "$pkgdir/usr/share/metainfo/chromium.appdata.xml"
-  sed -i \
+  sed -ni \
     -e 's/chromium-browser\.desktop/chromium.desktop/' \
     -e '/<update_contact>/d' \
     -e '/<p>/N;/<p>\n.*\(We invite\|Chromium supports Vorbis\)/,/<\/p>/d' \
+    -e '/^<?xml/,$p' \
     "$pkgdir/usr/share/metainfo/chromium.appdata.xml"
 
   local toplevel_files=(

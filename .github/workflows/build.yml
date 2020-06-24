@@ -1,5 +1,5 @@
 name: Build ungoogled chromium
-on: release
+on: [push, pull_request]
 
 jobs:
     prepare:
@@ -9,6 +9,8 @@ jobs:
         steps:
             - name: Checkout latest commit
               uses: actions/checkout@v2
+              with:
+                  ref: ${{ github.event.pull_request.head.sha }}
             - name: Prepare environment
               run: .github/workflows/build/env.sh
             - name: Prepare sources
@@ -16,8 +18,21 @@ jobs:
             - name: Upload sources
               uses: actions/upload-artifact@v2
               with:
-                  name: src
-                  path: /home/build/src.txt
+                  name: res
+                  path: /home/build/res/
+    obs_build:
+        env:
+            OBS_AUTH: ${{ secrets.OBS_AUTH }}
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout latest commit
+              uses: actions/checkout@v2
+              with:
+                  ref: ${{ github.event.pull_request.head.sha }}
+            - name: Trigger OBS build
+              if: ${{ env.OBS_AUTH != 0 }}
+              shell: bash
+              run: .github/workflows/obs_upload.sh
     build_1:
         runs-on: ubuntu-20.04
         needs: prepare
@@ -26,25 +41,23 @@ jobs:
         steps:
             - name: Checkout latest commit
               uses: actions/checkout@v2
+              with:
+                  ref: ${{ github.event.pull_request.head.sha }}
             - name: Download artifacts
               uses: actions/download-artifact@v2
+              with:
+                  name: res
             - name: Prepare environment
               run: .github/workflows/build/env.sh
             - name: Extract sources
               run: .github/workflows/build/extract.sh
             - name: Build package
               run: sudo -u build -H bash -c .github/workflows/build/build.sh
-            - name: Upload source url
+            - name: Upload artifacts
               uses: actions/upload-artifact@v2
               with:
-                  name: src
-                  path: /home/build/src.txt
-            - name: Upload resulting package
-              uses: actions/upload-artifact@v2
-              if: failure()
-              with:
-                  name: pkg
-                  path: /home/build/artifacts
+                  name: res
+                  path: /home/build/res/
     build_2:
         runs-on: ubuntu-20.04
         needs: build_1
@@ -53,25 +66,23 @@ jobs:
         steps:
             - name: Checkout latest commit
               uses: actions/checkout@v2
+              with:
+                  ref: ${{ github.event.pull_request.head.sha }}
             - name: Download artifacts
               uses: actions/download-artifact@v2
+              with:
+                  name: res
             - name: Prepare environment
               run: .github/workflows/build/env.sh
             - name: Extract sources
               run: .github/workflows/build/extract.sh
             - name: Build package
               run: sudo -u build -H bash -c .github/workflows/build/build.sh
-            - name: Upload source url
+            - name: Upload artifacts
               uses: actions/upload-artifact@v2
               with:
-                  name: src
-                  path: /home/build/src.txt
-            - name: Upload resulting package
-              uses: actions/upload-artifact@v2
-              if: failure()
-              with:
-                  name: pkg
-                  path: /home/build/artifacts
+                  name: res
+                  path: /home/build/res/
     build_3:
         runs-on: ubuntu-20.04
         needs: build_2
@@ -80,25 +91,23 @@ jobs:
         steps:
             - name: Checkout latest commit
               uses: actions/checkout@v2
+              with:
+                  ref: ${{ github.event.pull_request.head.sha }}
             - name: Download artifacts
               uses: actions/download-artifact@v2
+              with:
+                  name: res
             - name: Prepare environment
               run: .github/workflows/build/env.sh
             - name: Extract sources
               run: .github/workflows/build/extract.sh
             - name: Build package
               run: sudo -u build -H bash -c .github/workflows/build/build.sh
-            - name: Upload source url
+            - name: Upload artifacts
               uses: actions/upload-artifact@v2
               with:
-                  name: src
-                  path: /home/build/src.txt
-            - name: Upload resulting package
-              uses: actions/upload-artifact@v2
-              if: failure()
-              with:
-                  name: pkg
-                  path: /home/build/artifacts
+                  name: res
+                  path: /home/build/res/
     build_4:
         runs-on: ubuntu-20.04
         needs: build_3
@@ -107,22 +116,20 @@ jobs:
         steps:
             - name: Checkout latest commit
               uses: actions/checkout@v2
+              with:
+                  ref: ${{ github.event.pull_request.head.sha }}
             - name: Download artifacts
               uses: actions/download-artifact@v2
+              with:
+                  name: res
             - name: Prepare environment
               run: .github/workflows/build/env.sh
             - name: Extract sources
               run: .github/workflows/build/extract.sh
             - name: Build package
               run: sudo -u build -H bash -c .github/workflows/build/build.sh
-            - name: Upload source url
+            - name: Upload artifacts
               uses: actions/upload-artifact@v2
               with:
-                  name: src
-                  path: /home/build/src.txt
-            - name: Upload resulting package
-              uses: actions/upload-artifact@v2
-              if: failure()
-              with:
-                  name: pkg
-                  path: /home/build/artifacts
+                  name: res
+                  path: /home/build/res/

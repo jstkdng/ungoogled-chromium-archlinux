@@ -8,11 +8,6 @@ declare -A PROJECTS=(
     [dev]=ungoogled-chromium-git
 )
 
-# make temporary directory
-TMP=$(mktemp -d)
-cp "${FILES[@]}" $TMP
-cd $TMP
-
 # decide which project to use
 BRANCH=${GITHUB_REF##*/}
 if [ -z ${GITHUB_HEAD_REF+x} ]; then

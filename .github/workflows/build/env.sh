@@ -2,7 +2,7 @@
 shopt -s dotglob
 
 echo "==> Installing required packages"
-pacman -Syu --noconfirm jq
+pacman -Syu --noconfirm jq coreutils
 
 echo "==> Copying build files..."
 cp -r * /home/build

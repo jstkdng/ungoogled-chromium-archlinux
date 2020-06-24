@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd $HOME
+cd /home/build
 
 echo "==> Resuming build..."
 timeout -k 10m -s SIGTERM 310m makepkg --noextract --nodeps
@@ -10,21 +10,8 @@ if compgen -G "*.pkg.tar.xz" > /dev/null; then
     sha256sum *.pkg.tar.zst
 
     echo "==> Moving package to artifacts folder"
-    mkdir artifacts
-    mv *.pkg.tar.zst artifacts/
+    mkdir res
+    mv *.pkg.tar.zst res/
 else
-    echo "==> Size of src/ directory"
-    du -shc src/
-
-    echo "==> Creating source archive..."
-    tar caf src.tar.zst src/ --remove-file -H posix --atime-preserve
-
-    echo "==> Size of source archive:"
-    du -shc src.tar.zst
-
-    echo "==> Checksum of source archive"
-    sha256sum src.tar.zst
-
-    echo "==> Uploading source archive..."
-    curl -F "file=@src.tar.zst" https://file.io | jq -r '.link' | tee src.txt
+    bash .github/workflows/upload_source.sh
 fi

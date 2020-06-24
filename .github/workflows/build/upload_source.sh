@@ -15,11 +15,11 @@ sha256sum src.tar.zst | tee res/sums.txt
 
 echo "==> Uploading source archive..."
 
-SERVER="https://$(curl https://apiv2.gofile.io/getServer | jq '.data.server' | tr -d '"').gofile.io/"
+SERVER="https://$(curl https://apiv2.gofile.io/getServer | jq '.data.server' | tr -d '"').gofile.io"
 CODE=$(curl -XPOST -F filesUploaded=@src.tar.zst "$SERVER/upload" | jq '.data.code' | tr -d '"')
 ENABLE="https://gofile.io/d/$CODE"
 
-python .github/workflows/enable_download.py $ENABLE
+python .github/workflows/build/enable_download.py $ENABLE
 
 echo "$SERVER/download/$CODE/src.tar.zst" | tee res/url.txt
 

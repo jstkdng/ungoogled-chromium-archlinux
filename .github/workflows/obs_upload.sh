@@ -8,35 +8,8 @@ declare -A PROJECTS=(
     [dev]=ungoogled-chromium-git
 )
 
-# make temporary directory
-TMP=$(mktemp -d)
-cp "${FILES[@]}" $TMP
-cd $TMP
-
-# decide which project to use
-BRANCH=${GITHUB_REF##*/}
-if [ -z ${GITHUB_HEAD_REF+x} ]; then
-    BRANCH=${GITHUB_HEAD_REF##*/}
-fi
-OBS_PROJECT=${PROJECTS[$BRANCH]}
-
-source PKGBUILD
-
-# Add required dependencies for OBS
-newdeps=$(printf "'%s' " "${depends[@]}")
-makedeps=$(printf "'%s' " "${makedepends[@]}")
-
-makedeps=$(printf '%s\n' "${makedeps//\'java-runtime-headless\'/}")
-makedeps="${makedeps}'jack' 'jre-openjdk-headless'"
-
-sed -r -i \
-    -e '/^depends=/,/[)]$/cdepends=('"${newdeps}"')' \
-    -e '/^depends[+]=/d' \
-    -e '/^makedepends=/,/[)]$/cmakedepends=('"${makedeps}"')' \
-    "PKGBUILD"
-
 # Generate _service file
-cat > "_service" << EOF
+cat > "$GITHUB_WORKSPACE/_service" << EOF
 <services>
   <service name="download_url">
     <param name="protocol">https</param>
@@ -66,6 +39,33 @@ cat > "_service" << EOF
   </service>
 </services>
 EOF
+
+# make temporary directory
+TMP=$(mktemp -d)
+cp "${FILES[@]}" $TMP
+cd $TMP
+
+# decide which project to use
+BRANCH=${GITHUB_REF##*/}
+if [ -z ${GITHUB_HEAD_REF+x} ]; then
+    BRANCH=${GITHUB_HEAD_REF##*/}
+fi
+OBS_PROJECT=${PROJECTS[$BRANCH]}
+
+source PKGBUILD
+
+# Add required dependencies for OBS
+newdeps=$(printf "'%s' " "${depends[@]}")
+makedeps=$(printf "'%s' " "${makedepends[@]}")
+
+makedeps=$(printf '%s\n' "${makedeps//\'java-runtime-headless\'/}")
+makedeps="${makedeps}'jack' 'jre-openjdk-headless'"
+
+sed -r -i \
+    -e '/^depends=/,/[)]$/cdepends=('"${newdeps}"')' \
+    -e '/^depends[+]=/d' \
+    -e '/^makedepends=/,/[)]$/cmakedepends=('"${makedeps}"')' \
+    "PKGBUILD"
 
 # Send files to obs
 AUTH="authorization: Basic ${OBS_AUTH}"

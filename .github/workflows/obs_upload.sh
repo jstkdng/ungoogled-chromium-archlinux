@@ -1,11 +1,24 @@
 #!/bin/bash
+set -e
 
 declare -a FILES=(PKGBUILD _service)
+declare -A PROJECTS=(
+    [master]=ungoogled-chromium
+    [ozone]=ungoogled-chromium-ozone
+    [dev]=ungoogled-chromium-git
+)
 
 # make temporary directory
 TMP=$(mktemp -d)
 cp "${FILES[@]}" $TMP
 cd $TMP
+
+# decide which project to use
+BRANCH=${GITHUB_REF##*/}
+if [ -z ${GITHUB_HEAD_REF+x} ]; then
+    BRANCH=${GITHUB_HEAD_REF##*/}
+fi
+OBS_PROJECT=${PROJECTS[$BRANCH]}
 
 source PKGBUILD
 

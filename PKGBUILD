@@ -1,13 +1,18 @@
 # Maintainer: JustKidding <jk@vin.ovh>
+
+# Based on aur/chromium-vaapi, with ungoogled-chromium patches
+
+# Maintainer: Evangelos Foutras <evangelos@foutrelis.com>
 # Contributor: Pierre Schmitz <pierre@archlinux.de>
 # Contributor: Jan "heftig" Steffens <jan.steffens@gmail.com>
 # Contributor: Daniel J Griffiths <ghost1227@archlinux.us>
-# Contributor: Evangelos Foutras <evangelos@foutrelis.com>
 
 pkgname=ungoogled-chromium
 pkgver=83.0.4103.116
 pkgrel=1
 _pkgname=ungoogled-chromium
+# sometimes an ungoogled patches can be combined with a new chromium release
+# only if the release only includes security fixes
 _ungoogled_ver=83.0.4103.116-1
 _launcher_ver=6
 pkgdesc="A lightweight approach to removing Google web service dependency"
@@ -141,8 +146,11 @@ prepare() {
   # Ungoogled Chromium changes
   _ungoogled_repo="$srcdir/$_pkgname-$_ungoogled_ver"
   _utils="${_ungoogled_repo}/utils"
+  msg2 'Pruning binaries'
   python "$_utils/prune_binaries.py" ./ "$_ungoogled_repo/pruning.list"
+  msg2 'Applying patches'
   python "$_utils/patches.py" apply ./ "$_ungoogled_repo/patches"
+  msg2 'Applying domain substitution'
   python "$_utils/domain_substitution.py" apply -r "$_ungoogled_repo/domain_regex.list" \
     -f "$_ungoogled_repo/domain_substitution.list" -c domainsubcache.tar.gz ./
 

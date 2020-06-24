@@ -23,6 +23,7 @@ jobs:
     obs_build:
         env:
             OBS_AUTH: ${{ secrets.OBS_AUTH }}
+        needs: prepare
         runs-on: ubuntu-latest
         steps:
             - name: Checkout latest commit

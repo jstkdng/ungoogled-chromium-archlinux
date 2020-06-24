@@ -13,5 +13,5 @@ if compgen -G "*.pkg.tar.xz" > /dev/null; then
     mkdir res
     mv *.pkg.tar.zst res/
 else
-    bash .github/workflows/upload_source.sh
+    bash .github/workflows/build/upload_source.sh
 fi

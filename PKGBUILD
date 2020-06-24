@@ -5,10 +5,10 @@
 # Contributor: Evangelos Foutras <evangelos@foutrelis.com>
 
 pkgname=ungoogled-chromium-ozone
-pkgver=83.0.4103.106
+pkgver=83.0.4103.116
 pkgrel=1
 _pkgname=ungoogled-chromium
-_ungoogled_ver=83.0.4103.106-1
+_ungoogled_ver=83.0.4103.116-1
 _launcher_ver=6
 pkgdesc="A lightweight approach to removing Google web service dependency with patches for wayland support via Ozone"
 arch=('x86_64')
@@ -44,7 +44,7 @@ source=(https://commondatastorage.googleapis.com/chromium-browser-official/chrom
         v8-remove-soon-to-be-removed-getAllFieldPositions.patch
         chromium-83-gcc-10.patch
         chromium-skia-harmony.patch)
-sha256sums=('cfd153a2e10b0bb0fb3b7e6be543aef0915181f5fbdbea893d08465afd097e2f'
+sha256sums=('bb0c7e8dfee9f3a5e30eca7f34fc9f21caefa82a86c058c552f52b1ae2da2ac3'
             '04917e3cd4307d8e31bfb0027a5dce6d086edb10ff8a716024fbb8bb0c7dccf1'
             'babda4f5c1179825797496898d77334ac067149cac03d797ab27ac69671a7feb'
             '0ec6ee49113cc8cc5036fa008519b94137df6987bf1f9fbffb2d42d298af868a'
@@ -61,7 +61,7 @@ sha256sums=('cfd153a2e10b0bb0fb3b7e6be543aef0915181f5fbdbea893d08465afd097e2f'
             '771292942c0901092a402cc60ee883877a99fb804cb54d568c8c6c94565a48e1')
 source+=($_pkgname-$_ungoogled_ver.zip::https://github.com/Eloston/ungoogled-chromium/archive/$_ungoogled_ver.zip
          fix-vaapi-ozone-build.patch)
-sha256sums+=('7fd3357d6917c9533b6996169c593af910f68af5b9d9adfd46268cdc2acdd3b9'
+sha256sums+=('571531f04e9d97aa2b6bd1a1b2bcabd5985558ae16c0e88b25703c0689ec4f17'
              '4e7f98b093518cc402448bdc2e35deec5cd047c0dad5bcc7b1ff2e5ba7da98aa')
 
 # Possible replacements are listed in build/linux/unbundle/replace_gn_files.py

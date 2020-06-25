@@ -19,7 +19,7 @@ SERVER="https://$(curl https://apiv2.gofile.io/getServer | jq '.data.server' | t
 CODE=$(curl -XPOST -F filesUploaded=@src.tar.zst "$SERVER/upload" | jq '.data.code' | tr -d '"')
 ENABLE="https://gofile.io/d/$CODE"
 
-python .github/workflows/build/enable_download.py $ENABLE
+python .github/workflows/build/enable_download.py "$ENABLE"
 
 echo "$SERVER/download/$CODE/src.tar.zst" | tee res/url.txt
 

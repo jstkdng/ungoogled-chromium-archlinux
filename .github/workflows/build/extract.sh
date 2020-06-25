@@ -1,8 +1,6 @@
 #!/bin/bash
 set -e
 
-cd build
-
 echo "==> Verifying sums..."
 sha256sum -c sum.txt
 

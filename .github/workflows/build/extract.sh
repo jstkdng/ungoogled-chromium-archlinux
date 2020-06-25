@@ -1,12 +1,10 @@
 #!/bin/bash
+set -e
 
-cd res/
-
-echo "==> Downloading source archive..."
-curl -o src.tar.zst $(< url.txt)
+cd build
 
 echo "==> Verifying sums..."
-sha256sum -c sums.txt
+sha256sum -c sum.txt
 
 echo "==> Extracting source archive..."
 tar -xf src.tar.zst -C /home/build

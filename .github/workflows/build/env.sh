@@ -1,4 +1,5 @@
 #/bin/bash
+set -e
 shopt -s dotglob
 
 echo "==> Installing required packages"
